@@ -1,0 +1,40 @@
+By default the Script syncs the /etc to /root/.etcbackup/. You can change 
+this by editing the $BACKUPDIR variable in the script.
+
+After initializing the Script with -i option it saves a copy of /etc to 
+/root/.etcbackup/etc and a file /root/.etcbackup/content.bak which contains 
+the permissions user and owner of every file in the original /etc directory. 
+All files under $BACKUPDIR than gets under version control by git.
+
+Whenever you have done some changes in the configuration files, you can check 
+them in and commit them to git by using the -b option to etckeeper-ng. The 
+Backup function takes a little bit longer though, since the script also tests 
+whether any permission or ownership or groupship has changed. In this case the 
+Script will ask you, if you would like to restore the original permissions or 
+commit the changed permissions and store them in the content.bak file.
+
+You can list your commits by using the -l option.
+
+However you will be notified that you should define some files like /etc/passwd or 
+/etc/shadow that should not be included in the backup. You can define the /etc/passwd
+file from being backed up by issuing the Script etckeeper-ng -e passwd. You have to 
+give the relative path from /etc to say which files you wish to exlclude from being 
+backed up. This will create a file /root/.etcbackup/excludes which will be read by 
+the rsync programm with the --exclude-from option.
+
+Checking if someone has something changed can be archived by using the -c option. 
+This will create a second copy of the backup directory and will rsync the /etc to 
+this particular second copy. The directory can be set by editing the variable 
+$COMPAREDIR. The script will use git status -s and a check function for the 
+permissions to check against content.bak if the user, the group and the permissions 
+of all files are genuine.
+
+If someone or yourself by accident change the permissions of a particular file you can 
+reset this by using the -C option. Note: It's a capital C.
+
+And finaly restoring the /etc directory can be archived by using the -r
+were you can use HEAD restoring from the latest commit or the md5sum which is 
+listed after "commit" when you using -l. Not that this option does not work yet.
+
+
+Hope this script makes the live a little bit easier for you.

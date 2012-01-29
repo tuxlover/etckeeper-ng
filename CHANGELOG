@@ -1,0 +1,8 @@
+0.2.0
+-do the validation checks like if we have installed certain  programs, if we are root before readng the options
+-extracted etckeeper-ng from bashtools
+- added README
+- added CHANGELOG
+- added keeper.conf
+
+0.1 Initial Release
