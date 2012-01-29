@@ -770,39 +770,3 @@ while getopts ibcClhe:f: opt
 shift `expr $OPTIND - 1`
 
 exit 0
-
-# Todo:
-# report of changed files in diff report file when found in function compare
-# add cronjob functionality to do checks in regular intervalls
-# use a config file for configuring how etckeeper behaves
-# dont remove exlcudefile when reinitializing with -i
-# The restore option is still broken
-# add a comment funtion if you only need to comment your work for example if you changed files which where exlcluded by excludefile
-# make fskeeper use an external config file which gets sourced 
-# make the config file options work
-#using multiple backups
-# option -s to list excludes, -d to delete excludes and -E to edit excludes 
-#-b option
-# Write checksums for excluded files
-#-c options
-# do check for the checksums for excluded files 
-# -c if no changes were made tell the user
-# colorize the output
-# -f option can take more than one argument
-# use -u options when using -f before. so it goes like this etckeeper-ng -f /etc/bla/foor.conf; etckeeper -u
-# check if the argument is an etc file
-# -u option to update a repository 
-# -s we need to have a status option
-# write a simple manpage for this program
-# package the program
-# get it as official package
-
-
-# Bugs:
-# #1 having german umlaute in datafiles gets data not to be commited
-# #2 exluding a file by describing the absolute path does not work
-# #3 when using exclude, allready added exlude patterns will get added again
-# #4 when using -b option and a file was excluded or deleted etckeeper does sometimes not recognize this 
-# #5 when using -f somtimes getting this:
-#fatal: Not a git repository (or any parent up to mount parent )
-#Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).

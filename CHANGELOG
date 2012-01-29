@@ -1,8 +1,13 @@
-0.2.0
--do the validation checks like if we have installed certain  programs, if we are root before readng the options
--extracted etckeeper-ng from bashtools
-- added README
-- added CHANGELOG
-- added keeper.conf
+=== 0.2.0 - 30.01.2012 ===
+* moved etckeeper-ng out of bashtools
+* functions check_root and check_tools are called before every option gets parsed
+* etckeeper now works with the keeper.conf configuration file which is already 
+  configured but also allows you to setup your own parameters seperate from the script
+* A diff is used to log changes in files
+* added file README
+* added file CHANGELOG
+* added file keeper.conf
+* added file TODO
+* added file BUGS
 
-0.1 Initial Release
+=== 0.1 Initial Release ===

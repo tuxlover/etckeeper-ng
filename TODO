@@ -1,0 +1,42 @@
+# Todo until 0.2.1
+# fix known bugs
+# dont remove exlcudefile when reinitializing with -i
+# add a comment function if you only need to comment your work for example 
+## if you changed files which where exlcluded by excludefile
+
+
+# Todo until 0.2.2
+# fix known bugs
+# additional feature to -b option: Write checksums for excluded files
+# additional feature to -c option: do check for the checksums for excluded files 
+# additional feature to -c option: if no changes were made tell the user
+# new -s status option which shows git status of a backup
+
+
+# Todo until 0.2.3
+# fix known bugs and change -f option
+# -f should only add the files to the back but not create a new commit
+# after initialize a new commit, the -u (update) option must be used
+
+# Todo until 0.2.5
+# Heavy testing and fixing bugs
+
+# Todo until 0.3.0
+# fix known bugs
+# add cronjob functionality to do checks in regular intervalls
+# revmap the keeper.conf file
+# finaly implement this restore -r option
+
+# Todo 0.3.1
+# fix known bugs
+#  using multiple directories
+
+
+Todo in further future:
+# option to list excludes, to delete excludes and to edit excludes 
+# colorize the output
+# write a simple manpage for this program
+# package the program
+# check wheter we are using filesystems which are using unix permissions like ext or someting
+# implement ecnryption
+# implement compression

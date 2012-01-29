@@ -1,0 +1,8 @@
+# Bugs:
+# #1 having german umlaute in datafiles gets data not to be commited
+# #2 exluding a file by describing the absolute path does not work
+# #3 when using exclude, allready added exlude patterns will get added again
+# #4 when using -b option and a file was excluded or deleted etckeeper does sometimes not recognize this 
+# #5 when using -f somtimes getting this:
+#fatal: Not a git repository (or any parent up to mount parent )
+#Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
