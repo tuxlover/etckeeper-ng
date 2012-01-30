@@ -2,7 +2,7 @@
 
 # etckeeper-ng
 
-#the locatin of the configuration file
+#the location of the configuration file
 source /etc/keeper.conf
 
 
