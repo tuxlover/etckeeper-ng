@@ -3,20 +3,20 @@ The idea behind etckeeper-ng is to improve and simplify the idea of using
 git as a backup and security strategy for the linux /etc directory.
 
 Why is that important:
-The /etc directory is usally the systems directory where linux/unix safes
-the global settings and configurations of certain serviceses and daemons
-usally configured and maintained by one or even more administrators.
+The /etc directory is usually the systems directory where linux/unix safes
+the global settings and configurations of certain services and daemons
+usually configured and maintained by one or even more administrators.
 
 etckeeper-ng uses git to keep track of these configurations and adds the missing
 feature of git not only to store these files but to keep track of there permissions
-and fileowners in this directory.
+and file owners in this directory.
 
 *By using git it is fairly easy to role back some broken or misconfigured files.
 *The commentary functionality of git can be used to document the work of the administrator.
 
-etckeeper-ng saves a copy of the /etc directory at anoter location than the
-/etc directory. It uses rsync to sync betwween these copies and uses git
-afterwards to checkin certain changes.
+etckeeper-ng saves a copy of the /etc directory at another location than the
+/etc directory. It uses rsync to sync between these copies and uses git
+afterward to check in certain changes.
 
 *Therefore the last known good state can be verified. 
 *etckeeper-ng itself can also restore permissions of a particular file.
@@ -32,20 +32,20 @@ find
 stat
 
 Why a new etckeeper:
-The old one was to complecated to configure and to use..
+The old one was to complicated to configure and to use..
 The used git repository should not be in the /etc directory itself but in
 a exact copy. I needed a way to easily keep track of permissions. More than
 one backup of the etckeeper seems to be a good idea. Also adding the check
-funtion as a cronjob.
+function as a cronjob.
 
 Does this work:
 It has some Bugs which causes the script not to function correctly. We will
 fix these in future releases. Whenever you find a bug please report it.
-Some of the things we want todo are not implemented yet, some have been removed
-because they are not funtion proertly like the -r option. There is still a lot
-of work to do until we can release a final veriosn. But for now it works pretty
+Some of the things we want to do are not implemented yet, some have been removed
+because they are not function propertly  like the -r option. There is still a lot
+of work to do until we can release a final version. But for now it works pretty
 well for backups.
 
 How does this work, where get help: 
-There will be a manpage for etckeeper-ng in future releases. for now look
+There will be a man page for etckeeper-ng in future releases. for now look
 up all you want to know in the MANUAL.txt file.
