@@ -2,7 +2,7 @@
 # fix known bugs
 # dont remove exlcudefile when reinitializing with -i
 # add a comment function if you only need to comment your work for example 
-## if you changed files which where exlcluded by excludefile
+## if you have changed files which where exlcluded by excludefile
 
 
 # Todo until 0.2.2
@@ -18,11 +18,10 @@
 # -f should only add the files to the back but not create a new commit
 # after initialize a new commit, the -u (update) option must be used
 
-# Todo until 0.2.5
+# Todo until 0.2.4
 # Heavy testing and fixing bugs
 
 # Todo until 0.3.0
-# fix known bugs
 # add cronjob functionality to do checks in regular intervalls
 # revmap the keeper.conf file
 # finaly implement this restore -r option
