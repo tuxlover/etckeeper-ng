@@ -1,6 +1,7 @@
 # Todo until 0.2.1
 # fix known bugs
 # dont remove exlcudefile when reinitializing with -i
+# modulise the program (done)
 # add a comment function if you only need to comment your work for example 
 ## if you have changed files which where exlcluded by excludefile
 
