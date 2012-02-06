@@ -16,7 +16,6 @@
 
 # Todo until 0.2.3
 # fix known bugs and change -f option
-# -f should only add the files to the back but not create a new commit
 # after initialize a new commit, the -u (update) option must be used
 
 # Todo until 0.2.4
@@ -44,3 +43,7 @@ Todo in further future:
 # do we really need options like -a -b, most options dont need an argument. so would it be better if we could use $1 and $2 so it is possible to
 # say etckeeper-ng check for example 
 #  have an install script which gets the right path to install
+#  have an reset function which resets the git repo from the last backuped state
+#  update the wiki and the Manual
+#  update the help
+#

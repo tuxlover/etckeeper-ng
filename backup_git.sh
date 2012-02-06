@@ -34,9 +34,9 @@ set_new=0
 # check if exluce file exists
 if [ ! -e $EXCLUDEFILE ]
 	then
-		rsync -rtpog --delete -clis /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc/
 	else
-		rsync -rtpog --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
 fi
 
 

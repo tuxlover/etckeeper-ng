@@ -1,3 +1,11 @@
+=== 0.2.1 - 06.02.2012 ===
+* etckeeper is split up in modules for better development
+* etckeeper uses a new options style now. use help to find out
+* the "add" command, formely knwon as the -f option can have more than one argument now
+* rewrote the help function
+* rewrote the git_backp_single function
+* rewrote the manual
+
 === 0.2.0 - 30.01.2012 ===
 * moved etckeeper-ng out of bashtools
 * functions check_root and check_tools are called before every option gets parsed

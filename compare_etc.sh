@@ -22,8 +22,8 @@ if [ ! -s $BACKUPDIR/content.lst ]
 		fi
 	else
 		mkdir $COMPAREDIR
-		rsync -rtpog --delete -clis $BACKUPDIR $COMPAREDIR	
-		rsync -rtpog --delete -clis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
+		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR	
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
 fi
 
 return_check=0

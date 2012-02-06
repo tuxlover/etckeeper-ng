@@ -14,3 +14,4 @@
 # #6 output of rsync should be quite 
 # #7 The output of keeper.log must be more specific in the header like: a is original and b is changed
 # #8 In systemd the targets are linked to lib we need a special handling for this
+# #9 when a comand does not exists, the help function don't gets called

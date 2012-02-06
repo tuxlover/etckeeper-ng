@@ -1,60 +1,78 @@
-backup_git_single()
+backup_single()
 {
+	
+
 DATE=$(date +%F-%H-%M)
-git_return=0
-# this option requires an argument so write a check whether $OPTARG is NULL and has a valid value
-# a valid value is a file or a path in one of the configured directories
+is_arg1=0
 
-# actually this should never happen
-if [ -z $OPTARG ]
-	then
-		echo "Option needs an argument"
-		exit 0
-fi
-
-# convert OPTARG to a string value
-OPTARG="$OPTARG"
-# check if we have a starting substring /etc/ and is at leest a substing of a lenght 6th
-if [[ ${OPTARG:0:5} != "/etc/" && ! -z ${OPTARG:6:1} ]]
-	then
-		echo "-f: needs valid path to a file stored in /etc"
-		exit 0
-	else
-		# use read loop to check each line in $EXCLUDEFILE against $OPTARG
-		# Stop if such patterns matches
-		lines=$(wc -l $EXCLUDEFILE|awk '{print $1}')
-	       	until [ "$lines" == 0 ]	
-			do
-				LINE=$(head -n $lines $EXCLUDEFILE |tail -1)
-				HAS_PATTERN=$(echo "$OPTARG"|grep $LINE || echo "no")
-				if [ $HAS_PATTERN != "no" ]
-					then
-						echo "This File has been exluded by exclude pattern:"
-						echo "$HAS_PATTERN"
-						echo "check $EXCLUDEFILE to correct this."
-						echo "will exit now"
-						exit 1
-
-				fi
-			lines=$((lines-=1))
-			done 
-
-		rsync -rtpog -clis $OPTARG $BACKUPDIR/$OPTARG
-
-		# check if file exists in content.lst and if not add it
-		awk '{print $1}' $BACKUPDIR/content.lst| grep "^$OPTARG$" &> /dev/null && inlist="yes" || inlist="no"
+for i in $args
+	do
+		# convert the ith postion in an actual string value
+		i="$i"
 		
-		if [ $inlist == "no" ]
+
+		#skip the first argument since it is the command itself
+		if [ $is_arg1 -eq 0 ]
 			then
-				 stat -c "%n %a %U %G" $OPTARG >> $BACKUPDIR/content.lst
-				 git add $BACKUPDIR/content.lst
-
+				is_arg1=1
+				continue
 		fi
-fi
+		
+		# check if we have a starting substring /etc/ and is at least a substring of a length 6th
+		# this will prevent an empty data or including the whole /etc directory
+		if [[ ${i:0:5} != "/etc/" && ! -z ${i:6:1} ]]
+			then
+				echo "-f: needs valid path to a file stored in /etc"
+				exit 0
+				
+			else 
+				# used to read loop to check each line  in $EXCLUDEFILE against args
+				# stop if such patterns matches
+				lines=$(wc -l $EXCLUDEFILE|awk '{print $1}')
+				until [ "$lines" == 0 ]
+					do
+						LINE=$(head -n $lines $EXCLUDEFILE |tail -1)
+						HAS_PATTERN=$(echo "$i"|grep $LINE || echo "no")
+						
+						if [ $HAS_PATTERN != "no" ]
+							then
+								echo "This File has been exluded by exclude pattern:"
+								echo "$HAS_PATTERN"
+								echo "check $EXCLUDEFILE to correct this."
+								echo "will exit now"
+							exit 1
 
+						fi
+						
+						lines=$((lines-=1))
+					done
+			
+			
+			# checking if our file actualy exists	
+			if [ ! -f $i ]
+				then
+					echo "WARNING: $i does not exists in /etc"
+					continue
+			fi
+			
+			rsync -rtpog -clis $i $BACKUPDIR/$i
+
+			# check if file exists in content.lst and if not add it
+			awk '{print $1}' $BACKUPDIR/content.lst| grep "^$i$" &> /dev/null && inlist="yes" || inlist="no"
+		
+			if [ $inlist == "no" ]
+				then
+					stat -c "%n %a %U %G" $i >> $BACKUPDIR/content.lst
+					git add $BACKUPDIR/content.lst
+
+			fi
+		fi
+
+
+done
 
 cd $BACKUPDIR
-git add $BACKUPDIR/$OPTARG
+git add $BACKUPDIR/$i
 
 while [ -z "$COMMENT" ]
 	        do
@@ -67,10 +85,4 @@ git commit -m "$USER $DATE ${COMMENT[*]}"
 git checkout master || return 1
 							
 
-
-# OPTARG than must check if this file exists in one of the supported direcotries 
-# those far this is only /etc
-
-# we dont call the check_perms function 
-# we test whether this file has changed and if so check in this change
 }

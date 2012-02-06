@@ -6,6 +6,8 @@ EWD="/usr/local/bin"
 
 #the location of the configuration file
 source /etc/keeper.conf
+
+#this functions are needed by etckeeper-ng
 source $EWD/get_help.sh
 source $EWD/check_tools.sh
 source $EWD/check_root.sh
@@ -13,10 +15,11 @@ source $EWD/exclude.sh
 source $EWD/initial_git.sh
 source $EWD/backup_single.sh
 source $EWD/backup_git.sh
-#soruce $EWD/restore_git.sh
+#source $EWD/restore_git.sh
 source $EWD/compare_etc.sh
 source $EWD/check_perms.sh
 source $EWD/check_perms_S.sh
+#source $EWD/reset_etc.sh
 
 
 # This Programm should be able to backup and restore a complete etc-tree
@@ -32,31 +35,43 @@ source $EWD/check_perms_S.sh
 check_root
 check_tools
 #options starts here
-while getopts ibcClhe:f: opt
-	do
-		case "$opt" in
-			i) initial_git
+# getting rid of those stupid options using words instead
+if [ $# -lt 1  ]
+	then
+		get_help
+elif [ $# -eq 1  ]
+	then
+		case "$1" in
+			"init") initial
 			;;
-			e) shift $((OPTIND -1))
-				args=$(echo $*)
-				exclude
-				break
+			"backup") backup_git
 			;;
-			f) backup_git_single 
+			"list") list_git || echo "no backup and no git repo found."
 			;;
-			b) backup_git
+			"check") compare_etc
 			;;
-			c) compare_etc
+			"reperm") check_perms_S
 			;;
-			C) check_perms_S
+			"help") get_help
 			;;
-			l) list_git || echo "no initial backup and no git repo found"
-			;;
-			h) get_help
-			;;
-			\?) get_help
+			"*")
 		esac
-	done
-shift `expr $OPTIND - 1`
-
+elif [ $# -ge 2 ]		
+	then
+		case "$1" in 
+		"exclude") args=$(echo $*)
+				   exclude
+			;;
+		"add")  args=$(echo $*)
+				backup_single
+			;; 			
+								
+		   "*") get_help
+		esac
+		
+else
+	get_help
+fi
+			
+					
 exit 0
