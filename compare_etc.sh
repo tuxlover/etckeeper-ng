@@ -1,4 +1,4 @@
-compare()
+compare_etc()
 {
 #delete old logfile if exising
 if [ -f $LOGFILE ]
