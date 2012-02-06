@@ -22,7 +22,7 @@ for i in $args
 		# this will prevent an empty data or including the whole /etc directory
 		if [[ ${i:0:5} != "/etc/" && ! -z ${i:6:1} ]]
 			then
-				echo "-f: needs valid path to a file stored in /etc"
+				echo "add: needs valid path to a file stored in /etc"
 				exit 0
 				
 			else 
@@ -33,13 +33,27 @@ for i in $args
 					do
 						LINE=$(head -n $lines $EXCLUDEFILE |tail -1)
 						HAS_PATTERN=$(echo "$i"|grep $LINE || echo "no")
-						
+												
 						if [ $HAS_PATTERN != "no" ]
 							then
 								echo "This File has been exluded by exclude pattern:"
 								echo "$HAS_PATTERN"
-								echo "check $EXCLUDEFILE to correct this."
-								echo "will exit now"
+								
+								awk '{print $1}' $BACKUPDIR/content.lst| grep "^$i$" &> /dev/null && inlist="yes" || inlist="no"
+		
+								if [ $inlist == "no" ]
+									then
+										stat -c "%n %a %U %G" $i >> $BACKUPDIR/content.lst
+										cd $BACKUPDIR
+										git add $BACKUPDIR/content.lst
+										echo "but will be  added to your content.lst "
+										cd $BACKUPDIR
+										git commit -m "$USER $DATE $i added to content.lst"
+										# and return back to master branch to make sure we succeed with no errors
+										git checkout master || return 1
+								fi
+										
+								
 							exit 1
 
 						fi
@@ -55,7 +69,7 @@ for i in $args
 					continue
 			fi
 			
-			rsync -rtpog -clis $i $BACKUPDIR/$i
+			rsync -rtpogq -clis $i $BACKUPDIR/$i
 
 			# check if file exists in content.lst and if not add it
 			awk '{print $1}' $BACKUPDIR/content.lst| grep "^$i$" &> /dev/null && inlist="yes" || inlist="no"
@@ -83,6 +97,4 @@ while [ -z "$COMMENT" ]
 git commit -m "$USER $DATE ${COMMENT[*]}"
 # and return back to master branch to make sure we succeed with no errors
 git checkout master || return 1
-							
-
 }

@@ -19,7 +19,7 @@ source $EWD/backup_git.sh
 source $EWD/compare_etc.sh
 source $EWD/check_perms.sh
 source $EWD/check_perms_S.sh
-#source $EWD/reset_etc.sh
+source $EWD/reset_etc.sh
 
 
 # This Programm should be able to backup and restore a complete etc-tree
@@ -51,6 +51,8 @@ elif [ $# -eq 1  ]
 			"check") compare_etc
 			;;
 			"reperm") check_perms_S
+			;;
+			"reset") reset_etc
 			;;
 			"help") get_help
 			;;

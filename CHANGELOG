@@ -2,9 +2,13 @@
 * etckeeper is split up in modules for better development
 * etckeeper uses a new options style now. use help to find out
 * the "add" command, formely knwon as the -f option can have more than one argument now
+* the "add" command now when find a excluded file will include this file in the content.lst
 * rewrote the help function
 * rewrote the git_backp_single function
 * rewrote the manual
+* the script is a lot quieter now
+* a new command reset enables the script to restore from last backup
+	- this is stll not ready and you have to uncomment the #$rm file line in the reset_etc.sh module
 
 === 0.2.0 - 30.01.2012 ===
 * moved etckeeper-ng out of bashtools

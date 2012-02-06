@@ -1,12 +1,11 @@
-# Todo until 0.2.1
+# Todo until 0.2.2
 # fix known bugs
-# dont remove exlcudefile when reinitializing with -i
-# modulise the program (done)
+# dont remove exlcudefile when reinitializing with init command
 # add a comment function if you only need to comment your work for example 
 ## if you have changed files which where exlcluded by excludefile
 
 
-# Todo until 0.2.2
+# Todo until 0.2.3
 # fix known bugs
 # additional feature to -b option: Write checksums for excluded files
 # additional feature to -c option: do check for the checksums for excluded files 
@@ -14,11 +13,11 @@
 # new -s status option which shows git status of a backup
 
 
-# Todo until 0.2.3
+# Todo until 0.2.4
 # fix known bugs and change -f option
 # after initialize a new commit, the -u (update) option must be used
 
-# Todo until 0.2.4
+# Todo until 0.2.5
 # Heavy testing and fixing bugs
 
 # Todo until 0.3.0
@@ -46,4 +45,5 @@ Todo in further future:
 #  have an reset function which resets the git repo from the last backuped state
 #  update the wiki and the Manual
 #  update the help
+# if no file has changed tell the user also
 #
