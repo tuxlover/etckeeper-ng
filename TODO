@@ -43,3 +43,4 @@ Todo in further future:
 # also save attributes of a file
 # do we really need options like -a -b, most options dont need an argument. so would it be better if we could use $1 and $2 so it is possible to
 # say etckeeper-ng check for example 
+#  have an install script which gets the right path to install

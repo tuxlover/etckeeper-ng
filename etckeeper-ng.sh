@@ -1,20 +1,22 @@
 #!/bin/bash
 
 # etckeeper-ng
+# This varibale is use to indicate the working dir for etckeeper modules
+EWD="/usr/local/bin"
 
 #the location of the configuration file
 source /etc/keeper.conf
-source ./get_help.sh
-source ./check_tools.sh
-source ./check_root.sh
-source ./exclude.sh
-source ./initial_git.sh
-source ./backup_single.sh
-source ./backup_git.sh
-#soruce ./restore_git.sh
-source ./compare.sh
-source ./check_perms.sh
-source ./check_perms_S.sh
+source $EWD/get_help.sh
+source $EWD/check_tools.sh
+source $EWD/check_root.sh
+source $EWD/exclude.sh
+source $EWD/initial_git.sh
+source $EWD/backup_single.sh
+source $EWD/backup_git.sh
+#soruce $EWD/restore_git.sh
+source $EWD/compare_etc.sh
+source $EWD/check_perms.sh
+source $EWD/check_perms_S.sh
 
 
 # This Programm should be able to backup and restore a complete etc-tree
@@ -44,7 +46,7 @@ while getopts ibcClhe:f: opt
 			;;
 			b) backup_git
 			;;
-			c) compare
+			c) compare_etc
 			;;
 			C) check_perms_S
 			;;
