@@ -42,10 +42,10 @@ Does this work:
 It has some Bugs which causes the script not to function correctly. We will
 fix these in future releases. Whenever you find a bug please report it.
 Some of the things we want to do are not implemented yet, some have been removed
-because they are not function propertly  like the -r option. There is still a lot
+because they do not function propertly  like the -r option. There is still a lot
 of work to do until we can release a final version. But for now it works pretty
 well for backups.
 
-How does this work, where get help: 
+How does this work, where to get help: 
 There will be a man page for etckeeper-ng in future releases. for now look
 up all you want to know in the Wikipage..
