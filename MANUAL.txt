@@ -33,6 +33,10 @@ to exlclude from being backed up. This will create a file
 /root/.etcbackup/excludes which will be read by the rsync programm 
 with the --exclude-from option.
 
+To add a single file to your backup use the "add" command. Note that if
+you have exlcluded a file from your backup this command will only add 
+the filename to your content.lst
+
 Checking if someone has something changed can be archived by using the 
 check command. This will create a second copy of the backup directory 
 and will rsync the /etc to this particular second copy. The directory 
