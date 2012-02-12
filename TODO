@@ -46,4 +46,4 @@ Todo in further future:
 #  update the wiki and the Manual
 #  update the help
 # if no file has changed tell the user also
-#
+# when using backup have an option to disable the permissions check
