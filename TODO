@@ -14,8 +14,8 @@
 
 
 # Todo until 0.2.4
-# fix known bugs and change -f option
-# after initialize a new commit, the -u (update) option must be used
+# fix known bugs and change add command
+# after initialize a new commit, the update command must be used
 
 # Todo until 0.2.5
 # Heavy testing and fixing bugs

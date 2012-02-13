@@ -3,7 +3,6 @@
 # etckeeper-ng
 # This varibale is use to indicate the working dir for etckeeper modules
 EWD="/usr/local/bin"
-
 #the location of the configuration file
 source /etc/keeper.conf
 

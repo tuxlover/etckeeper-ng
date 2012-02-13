@@ -24,7 +24,7 @@ for e in ${EXCLUDES[@]}
 	
 		cat $EXCLUDEFILE|while read line
 			do
-				if [ "/$e" == "$line" ]
+				if [[ "/$e" == "$line" || "${e:4}" == "$line" ]]
 					then
 						echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
 						echo "Program will not exclude anything"
@@ -37,8 +37,14 @@ for e in ${EXCLUDES[@]}
 								echo "Program will not exclude anything"
 								exit 1
 						fi
-				fi
-				
+						echo "$line"|grep ${e:4}
+						if [ $? -eq 0 ]
+							then
+								echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
+								echo "Program will not exclude anything"
+								exit 1
+						fi
+				fi				
 			done
 			
 			# when leaving the read line loop with an exit value of 1 exit the script here
@@ -62,8 +68,17 @@ for e in ${EXCLUDES[@]}
 	
 		# test whether we have any files of a matching pattern
 		# if no pattern where matched we dont add this to the exlude file
-		if [ $(ls /etc/$e &> /dev/null && echo "yes"|| echo "no") == "no" ]
+		if [[ ${e:0:5} == "/etc/" && $(ls $e &> /dev/null && echo "yes"|| echo "no") == "yes" ]]
 			then
+				#only relative paths are accepted by rsync
+				# so we are cutting of "/etc" from this pattern
+				echo "${e:4}" >> $EXCLUDEFILE
+				continue
+		fi
+			
+		
+		if [ $(ls /etc/$e &> /dev/null && echo "yes"|| echo "no") == "no" ]
+			then		
 				echo "$e does not match any file in /etc"
 				continue
 		fi
