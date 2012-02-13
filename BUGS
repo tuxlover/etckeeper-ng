@@ -1,6 +1,6 @@
 # Bugs:
 # Summary: open Bugs: 7
-#			fixed Bugs:9
+#			fixed Bugs:10
 
 # #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
 
@@ -19,4 +19,4 @@
 
 # #13 broken tput leaves shell in wrong color after exitting when interrupted
 
-# #17
+# #18
