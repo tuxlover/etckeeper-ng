@@ -50,12 +50,6 @@ if [ ! -e $EXCLUDEFILE ]
 		rsync -rtpog --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc
 fi
 
-while [ -z "$COMMENT" ]
-	do
-		echo "please comment your commit and press Enter when finished:"
-		read -e COMMENT 
-	done
-
 # doing the git action
 cd $BACKUPDIR
 git init
