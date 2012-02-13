@@ -15,7 +15,7 @@ if [ ! -s $BACKUPDIR/content.lst ]
 		
 		if [ "$ANSWER" != "y"  ]
 			then
-				echo "use -i option to do an initial backup"
+				echo "use the init command to do an initial backup"
 				exit 1
 			else
 				initial_git && exit 0 || exit  && exit 0 || exit 11
@@ -36,7 +36,7 @@ set_ren=0
 set_new=0
 
 cd $COMPAREDIR
-git checkout master
+git checkout master &> /dev/null
 
 
 git_status_file="/tmp/git_status_file"

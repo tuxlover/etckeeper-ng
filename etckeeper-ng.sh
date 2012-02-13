@@ -7,7 +7,6 @@
 EWD=$(pwd)
 old_IFS=$IFS
 
-
 #the location of the configuration file
 source /etc/keeper.conf
 

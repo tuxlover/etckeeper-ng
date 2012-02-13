@@ -20,7 +20,7 @@ if [ ! -s $BACKUPDIR/content.lst ]
 fi
 # first make sure we are on master
 cd $BACKUPDIR
-git checkout master
+git checkout master &> /dev/null
 
 git_return=0
 check_perms
@@ -138,5 +138,5 @@ while [ -z "$COMMENT" ]
 git commit -m "$USER $DATE ${COMMENT[*]}"
 
 #and return back to master branch to make sure we succeed with no errors
-git checkout master || return 1			
+git checkout master &> /dev/null || return 1			
 }

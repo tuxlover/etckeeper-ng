@@ -31,6 +31,7 @@
 
 
 Todo in further future:
+# checking for sufficient diskspace
 # have an option to remove certain exclude patterns
 # colorize the output
 # write a simple manpage for this program

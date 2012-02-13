@@ -1,20 +1,16 @@
 # Bugs:
 # Summary: known Bugs: 15
-#			fixed Bugs:2
+#			fixed Bugs:4
 
 # #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
 
 # #2 exluding a file by describing the absolute path does not work
-
-# #3 when using exclude, already added exclude patterns will get added again
 
 # #4 when using -b option and a file was excluded or deleted etckeeper does sometimes not recognize this 
 
 # #5 when using -f somtimes getting this:
 #fatal: Not a git repository (or any parent up to mount parent )
 #Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-
-# #6 output of rsync and git should be quite
  
 # #7 The output of keeper.log must be more specific in the header like: a is original and b is changed
 
@@ -28,6 +24,6 @@
 
 # #12 when issuing a command which is not in the main function the script does not return the help function
 
-# #13 broken tput leaves shell in wrong color after exitting
+# #13 broken tput leaves shell in wrong color after exitting when interrupted
 
 # #14 give feedback about what we are doing

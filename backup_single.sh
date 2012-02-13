@@ -50,7 +50,7 @@ for i in $args
 										cd $BACKUPDIR
 										git commit -m "$USER $DATE $i added to content.lst"
 										# and return back to master branch to make sure we succeed with no errors
-										git checkout master || return 1
+										git checkout master &> /dev/null || return 1
 								fi
 										
 								
@@ -96,5 +96,5 @@ while [ -z "$COMMENT" ]
 
 git commit -m "$USER $DATE ${COMMENT[*]}"
 # and return back to master branch to make sure we succeed with no errors
-git checkout master || return 1
+git checkout master &> /dev/null || return 1
 }
