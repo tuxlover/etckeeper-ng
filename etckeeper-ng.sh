@@ -2,10 +2,7 @@
 
 # etckeeper-ng
 # This varibale is use to indicate the working dir for etckeeper modules
-#EWD="/usr/local/bin"
-
-EWD=$(pwd)
-old_IFS=$IFS
+EWD="/usr/local/bin"
 
 #the location of the configuration file
 source /etc/keeper.conf
@@ -29,54 +26,64 @@ source $EWD/reset_etc.sh
 # It uses git and rsync to archive this
 # After backup has completed a complete restore should easy be possible 
 
-# WARNING: work in progress. for details read the todo section on the bottom of this script
-
-
-
-
 #check functions gets executed before doing anything else
 check_root
 check_tools
-IFS=$old_IFS
 #options starts here
 # getting rid of those stupid options using words instead
-if [ $# -lt 1  ]
+if [ $# -lt 1 ]
 	then
 		get_help
-elif [ $# -eq 1  ]
+		exit 0
+fi
+
+if [ $# -eq 1 ]
 	then
-		case $1 in
+		case "$1" in
 			"init") initial
+					exit 0
 			;;
 			"backup") backup_git
+					  exit 0
 			;;
 			"list") list_git || echo "no backup and no git repo found."
+					 exit 0
 			;;
 			"check") compare_etc
+					  exit 0
 			;;
 			"reperm") check_perms_S
+					  exit 0
 			;;
 			"list-excludes") cat $EXCLUDEFILE
+							 exit 0
 			;;
 			"reset") reset_etc
+					 exit 0
 			;;
 			"help") get_help
+					exit 0
 			;;
-			*)
+			*) get_help
+			   exit 0
 		esac
-elif [ $# -ge 2 ]		
+fi
+		
+if [ $# -ge 2 ]		
 	then
-		case $1 in 
+		case "$1" in 
 		"exclude") args=$(echo $*)
 				   exclude
+				   exit 0
 			;;
 		"add")  args=$(echo $*)
 				backup_single
+				exit 0
 			;; 			
 								
-		   *) get_help
+		*) get_help
+		   exit 0
 		esac
-		
 else
 	get_help
 fi

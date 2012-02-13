@@ -23,7 +23,7 @@ for i in $args
 		if [[ ${i:0:5} != "/etc/" && ! -z ${i:6:1} ]]
 			then
 				echo "add: needs valid path to a file stored in /etc"
-				exit 0
+				exit 1
 				
 			else 
 				# used to read loop to check each line  in $EXCLUDEFILE against args

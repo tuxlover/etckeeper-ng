@@ -1,6 +1,6 @@
 # Bugs:
 # Summary: known Bugs: 15
-#			fixed Bugs:4
+#			fixed Bugs:5
 
 # #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
 
@@ -16,9 +16,7 @@
 
 # #8 In systemd the targets are linked to lib we need a special handling for this
 
-# #9 when a comand does not exists, the help function don't gets called
-
-# #10 scripts do not recognize white space
+# #10 scripts does not recognize white space
 
 # #11 restore for permission during check does not work
 
