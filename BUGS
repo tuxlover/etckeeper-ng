@@ -1,6 +1,6 @@
 # Bugs:
-# Summary: open Bugs: 8
-#			fixed Bugs:8
+# Summary: open Bugs: 7
+#			fixed Bugs:9
 
 # #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
 
@@ -16,8 +16,6 @@
 # #10 scripts does not recognize white space
 
 # #11 restore for permission during check does not work
-
-# #12 when issuing a command which is not in the main function the script does not return the help function
 
 # #13 broken tput leaves shell in wrong color after exitting when interrupted
 
