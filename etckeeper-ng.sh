@@ -2,7 +2,11 @@
 
 # etckeeper-ng
 # This varibale is use to indicate the working dir for etckeeper modules
-EWD="/usr/local/bin"
+#EWD="/usr/local/bin"
+
+EWD=$(pwd)
+old_IFS=$IFS
+
 
 #the location of the configuration file
 source /etc/keeper.conf
@@ -34,6 +38,7 @@ source $EWD/reset_etc.sh
 #check functions gets executed before doing anything else
 check_root
 check_tools
+IFS=$old_IFS
 #options starts here
 # getting rid of those stupid options using words instead
 if [ $# -lt 1  ]
@@ -41,7 +46,7 @@ if [ $# -lt 1  ]
 		get_help
 elif [ $# -eq 1  ]
 	then
-		case "$1" in
+		case $1 in
 			"init") initial
 			;;
 			"backup") backup_git
@@ -52,15 +57,17 @@ elif [ $# -eq 1  ]
 			;;
 			"reperm") check_perms_S
 			;;
+			"list-excludes") cat $EXCLUDEFILE
+			;;
 			"reset") reset_etc
 			;;
 			"help") get_help
 			;;
-			"*")
+			*)
 		esac
 elif [ $# -ge 2 ]		
 	then
-		case "$1" in 
+		case $1 in 
 		"exclude") args=$(echo $*)
 				   exclude
 			;;
@@ -68,7 +75,7 @@ elif [ $# -ge 2 ]
 				backup_single
 			;; 			
 								
-		   "*") get_help
+		   *) get_help
 		esac
 		
 else

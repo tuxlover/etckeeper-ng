@@ -1,3 +1,8 @@
+* new command "list-excludes" to list the exclude patterns in your Excludefile
+* fixed bugs: 
+		- broken exclude command
+		- help function still shows the old options in the header line
+
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development
 * etckeeper uses a new options style now. use help to find out

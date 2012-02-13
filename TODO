@@ -31,7 +31,7 @@
 
 
 Todo in further future:
-# option to list excludes, to delete excludes and to edit excludes 
+# have an option to remove certain exclude patterns
 # colorize the output
 # write a simple manpage for this program
 # package the program
@@ -42,7 +42,6 @@ Todo in further future:
 # do we really need options like -a -b, most options dont need an argument. so would it be better if we could use $1 and $2 so it is possible to
 # say etckeeper-ng check for example 
 #  have an install script which gets the right path to install
-#  have an reset function which resets the git repo from the last backuped state
 #  update the wiki and the Manual
 #  update the help
 # if no file has changed tell the user also
