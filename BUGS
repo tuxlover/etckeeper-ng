@@ -19,4 +19,10 @@
 
 # #13 broken tput leaves shell in wrong color after exitting when interrupted
 
-# #18
+# #18 when no file was exclude no warning and no stop in init happens
+#
+# #19 when using check command without exclude file we get an error from rsync
+#
+# #20 when using exclude command getting an error regarding cat
+#
+#

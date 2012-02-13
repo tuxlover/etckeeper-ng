@@ -39,7 +39,7 @@ fi
 if [ $# -eq 1 ]
 	then
 		case "$1" in
-			"init") initial
+			"init") initial_git
 					exit 0
 			;;
 			"backup") backup_git

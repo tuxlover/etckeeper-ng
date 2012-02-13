@@ -1,5 +1,7 @@
 * new command "list-excludes" to list the exclude patterns in your Excludefile
+* using the "init" command is no longer interactive: the first commit is always named: inital commit
 * fixed bugs: 
+
 		- broken exclude command
 		- help function did still show the old options in the header line
 		- when using exclude, already added exclude patterns were getting added again

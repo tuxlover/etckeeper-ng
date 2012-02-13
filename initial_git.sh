@@ -13,14 +13,14 @@ if [ -s $BACKUPDIR/content.lst  ]
 		
 		if [ "$ANSWER" != "y" ]
 			then
-				echo "use -b option to commit new backup branch"
+				echo "use backup command to commit new backup branch"
 				exit 1
 			else
 				rm -rf $BACKUPDIR/
 		fi
 fi
 
-#configure the gloabel git  if allready set do nothing
+# configure the gloabel git  if already set do nothing
 git config --global user.name "$USER" 2> /dev/null || :
 git config --global user.email "$USER@$HOSTNAME" 2> /dev/null || :
 
@@ -38,9 +38,12 @@ mkdir $BACKUPDIR/etc
 if [ ! -e $EXCLUDEFILE ]
 	then
 		echo "WARNING: there was no exlcudefile setup, so i exclude nothing"
-		echo "WARNING: Use -e to wirte a list of filese that will be excluded"
+		echo "WARNING: Use \"exclude\" to wirte a list of filese that will be excluded"
 		echo "WARNING: it is highly recommended that you first define what should be exluded"
 		sleep 10
+
+		# create empty excludefile
+		touch $EXCLUDEFILE
 		rsync -rtpog --delete -clis /etc/ $BACKUPDIR/etc
 	else
 		
@@ -56,10 +59,5 @@ while [ -z "$COMMENT" ]
 # doing the git action
 cd $BACKUPDIR
 git init
-if [ ! -e $EXCLUDEFILE ]
-then
-	git add etc/ && git add content.lst && git commit -m "$USER $DATE ${COMMENT[*]}"
-else
-	git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE ${COMMENT[*]}"
-fi
+git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"
 }
