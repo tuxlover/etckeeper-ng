@@ -117,7 +117,7 @@ until  [ "$lof" == 0  ]
 
 					if [ $i -eq 2  ]
 						then
-							PAGER=cat git diff $COMPAREDIR >> $LOGFILE
+							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
 					fi
 					break
 								
@@ -127,7 +127,7 @@ until  [ "$lof" == 0  ]
 				
 					if [ $i -eq 2  ]
 						then
-							PAGER=cat git diff $COMPAREDIR >> $LOGFILE
+							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
 					fi
 			fi
 		done

@@ -6,6 +6,7 @@
 		- output of rsync and git is more quite now
 		- when the user entered an unknown command the help function was not getting called
 		- exluding a file by describing the absolute path did not exclude this file
+		- when using check function the output of the log file was rather confusing
 
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development

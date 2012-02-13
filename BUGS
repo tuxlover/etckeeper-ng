@@ -1,6 +1,6 @@
 # Bugs:
-# Summary: known Bugs: 16
-#			fixed Bugs:6
+# Summary: open Bugs: 8
+#			fixed Bugs:8
 
 # #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
 
@@ -11,8 +11,6 @@
 #fatal: Not a git repository (or any parent up to mount parent )
 #Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
  
-# #7 The output of keeper.log must be more specific in the header like: a is original and b is changed
-
 # #8 In systemd the targets are linked to lib we need a special handling for this
 
 # #10 scripts does not recognize white space
@@ -23,4 +21,4 @@
 
 # #13 broken tput leaves shell in wrong color after exitting when interrupted
 
-# #14 give feedback about what we are doing
+# #17

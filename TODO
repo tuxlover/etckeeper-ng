@@ -31,6 +31,7 @@
 
 
 Todo in further future:
+# 14 give feedback about what we are doing
 # checking for sufficient diskspace
 # have an option to remove certain exclude patterns
 # colorize the output
@@ -47,3 +48,4 @@ Todo in further future:
 #  update the help
 # if no file has changed tell the user also
 # when using backup have an option to disable the permissions check
+# restore a single file from backup
