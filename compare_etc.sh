@@ -26,7 +26,7 @@ if [ ! -s $BACKUPDIR/content.lst ]
 				initial_git && exit 0 || exit  && exit 0 || exit 11
 		fi
 	else
-		echo "syncinc backup dirctory to comparing directory ..."
+		echo "syncing backup dirctory to comparing directory ..."
 		mkdir $COMPAREDIR
 		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
 		echo "syncing working directory to comparing directory ..."	
