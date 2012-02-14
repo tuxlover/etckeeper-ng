@@ -2,15 +2,19 @@
 
 reset_etc()
 {
-
+echo "resetting from latest backup ..."
 #fix for the files with spaces
 old_IFS=$IFS
 IFS=$'\n'	
-	
+
+echo "checkout last commit ..."	
 cd $BACKUPDIR
 git checkout -- *
+
+echo "syncing back to current working /etc directory ..."
 rsync -rtpogq -clis $BACKUPDIR/etc/ /etc/
 
+echo "deleting files not found in latest backup ..."
 for file in $(find /etc/ -printf '%p\n')
 	do
 		in_origin=$(grep $file $BACKUPDIR/content.lst  &> /dev/null && echo "yes" || echo "no") 
@@ -23,5 +27,7 @@ for file in $(find /etc/ -printf '%p\n')
 	done
 
 IFS=$old_IFS
+echo -e '\E[32m done'
+tput sgr0
 }
 

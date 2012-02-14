@@ -1,28 +1,17 @@
 # Bugs:
-# Summary: open Bugs: 7
-#			fixed Bugs:10
+# Known Bugs during development: 20
+# Summary: open Bugs: 4
+#			fixed Bugs:16
 
-# #1 having german umlaute in datafiles gets wrong results (ü ö ä ß) this has something to do with encoding
-
-# #4 when using -b option and a file was excluded or deleted etckeeper does sometimes not recognize this 
-# especialy when having whitespaces or weird names in the files name or german umlaute or ß
 
 # #5 when using -f somtimes getting this:
 #fatal: Not a git repository (or any parent up to mount parent )
 #Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
- 
+# 
 # #8 In systemd the targets are linked to lib we need a special handling for this
-
+#
 # #10 scripts does not recognize white space
-
+#
 # #11 restore for permission during check does not work
-
-# #13 broken tput leaves shell in wrong color after exitting when interrupted
-
-# #18 when no file was exclude no warning and no stop in init happens
-#
-# #19 when using check command without exclude file we get an error from rsync
-#
-# #20 when using exclude command getting an error regarding cat
 #
 #

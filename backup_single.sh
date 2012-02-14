@@ -1,9 +1,14 @@
 backup_single()
 {
 	
-
+echo "add single files ..."
 DATE=$(date +%F-%H-%M)
 is_arg1=0
+
+# fix problems with german umlauts
+# if already set do nothing
+git config --global core.quotepath false || :
+
 
 for i in $args
 	do
@@ -51,6 +56,8 @@ for i in $args
 										git commit -m "$USER $DATE $i added to content.lst"
 										# and return back to master branch to make sure we succeed with no errors
 										git checkout master &> /dev/null || return 1
+										echo -e '\E[32m done'
+										tput sgr0
 								fi
 										
 								
@@ -85,6 +92,7 @@ for i in $args
 
 done
 
+echo "commiting single files to backup ..."
 cd $BACKUPDIR
 git add $BACKUPDIR/$i
 
@@ -97,4 +105,6 @@ while [ -z "$COMMENT" ]
 git commit -m "$USER $DATE ${COMMENT[*]}"
 # and return back to master branch to make sure we succeed with no errors
 git checkout master &> /dev/null || return 1
+echo -e '\E[32m done'
+tput sgr0
 }

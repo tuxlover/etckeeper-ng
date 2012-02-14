@@ -1,8 +1,12 @@
 # to a branched backup
 backup_git()
 {
+# fix problems with german umlauts
+# if already set do nothing
+git config --global core.quotepath false || :
 
 DATE=$(date +%F-%H-%M)
+echo "backup repository ..."
 #check if the initial backup exists
 if [ ! -s $BACKUPDIR/content.lst ]
 	then
@@ -20,6 +24,7 @@ if [ ! -s $BACKUPDIR/content.lst ]
 fi
 # first make sure we are on master
 cd $BACKUPDIR
+echo "checkout backup directory ..."
 git checkout master &> /dev/null
 
 git_return=0
@@ -34,14 +39,17 @@ set_new=0
 # check if exluce file exists
 if [ ! -e $EXCLUDEFILE ]
 	then
+		echo "syncing from your current /etc ..."
 		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc/
 	else
+		echo "syncing from your current /etc ..."
 		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
 fi
 
 
 # then track changed files
 # create a helper file which will be deleted afterwards
+echo "looking for differences ..."
 git_status_file="/tmp/git_status_file"
 git status -s > $git_status_file
 lof=$(wc -l $git_status_file|awk '{print $1}')
@@ -134,9 +142,13 @@ while [ -z "$COMMENT" ]
 		echo "please comment your commit and press Enter when finished:"
 		read -e COMMENT 
 	done
-	
+
+echo "commiting files to Backup ..."
 git commit -m "$USER $DATE ${COMMENT[*]}"
 
 #and return back to master branch to make sure we succeed with no errors
 git checkout master &> /dev/null || return 1			
+
+echo -e '\E[32m done'
+tput sgr0
 }

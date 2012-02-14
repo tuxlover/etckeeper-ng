@@ -1,7 +1,7 @@
 * new command "list-excludes" to list the exclude patterns in your Excludefile
 * using the "init" command is no longer interactive: the first commit is always named: inital commit
+* all commands showing comments during runtime what the script is doing 
 * fixed bugs: 
-
 		- broken exclude command
 		- help function did still show the old options in the header line
 		- when using exclude, already added exclude patterns were getting added again
@@ -10,6 +10,10 @@
 		- exluding a file by describing the absolute path did not exclude this file
 		- when using check function the output of the log file was rather confusing
 		- init command was broken
+		- missing tput sgr0 in check_root leaving red color when script abborts as non root user
+		- git config core.quotepath false fixes issues with german umlauts
+		- using check command without exclude file produced an error from rsync
+		- when using exclude command the first time produced an error regarding cat
 
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development

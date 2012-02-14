@@ -4,7 +4,7 @@ initial_git()
 {
 
 DATE=$(date +%F-%H-%M)
-
+echo "initialize repository ..."
 #check if an older backup already exists
 if [ -s $BACKUPDIR/content.lst  ]
 	then
@@ -23,13 +23,16 @@ fi
 # configure the gloabel git  if already set do nothing
 git config --global user.name "$USER" 2> /dev/null || :
 git config --global user.email "$USER@$HOSTNAME" 2> /dev/null || :
+git config --global core.quotepath false || :
 
 if [ ! -d $BACKUPDIR ]
 	then	
+		echo "creating content.lst ..."
 		mkdir -p $BACKUPDIR	
 		find /etc/ -exec stat -c "%n %a %U %G" {} \; >> $BACKUPDIR/content.lst
 
 	else
+		echo "creating content.lst ..."
 		find /etc/ -exec stat -c "%n %a %U %G" {} \; >> $BACKUPDIR/content.lst		
 fi
 
@@ -44,14 +47,19 @@ if [ ! -e $EXCLUDEFILE ]
 
 		# create empty excludefile
 		touch $EXCLUDEFILE
-		rsync -rtpog --delete -clis /etc/ $BACKUPDIR/etc
+		echo "syncing directories ..."
+		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc
 	else
-		
-		rsync -rtpog --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc
+		echo "syncing directories ..."
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc
 fi
 
 # doing the git action
 cd $BACKUPDIR
 git init
+echo "init repository ..."
 git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"
+
+echo -e '\E[32m done'
+tput sgr0
 }

@@ -1,5 +1,9 @@
 check_perms()
 {
+# fix problems with german umlauts
+# if already set do nothing
+git config --global core.quotepath false || :
+	
 return_check=0
 echo "checking Permissions ..."	
 	

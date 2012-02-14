@@ -1,12 +1,17 @@
 compare_etc()
 {
+# fix problems with german umlauts
+# if already set do nothing
+git config --global core.quotepath false || :
+
+echo "comparing backup directory with current working /etc directory ..."
 #delete old logfile if exising
 if [ -f $LOGFILE ]
 	then
 		rm $LOGFILE
 fi
 
-#check if the initial backup exists
+# check if the initial backup exists
 if [ ! -s $BACKUPDIR/content.lst ]
 	then
 		echo "No initial backup found"
@@ -21,8 +26,10 @@ if [ ! -s $BACKUPDIR/content.lst ]
 				initial_git && exit 0 || exit  && exit 0 || exit 11
 		fi
 	else
+		echo "syncinc backup dirctory to comparing directory ..."
 		mkdir $COMPAREDIR
-		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR	
+		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
+		echo "syncing working directory to comparing directory ..."	
 		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
 fi
 
@@ -38,7 +45,7 @@ set_new=0
 cd $COMPAREDIR
 git checkout master &> /dev/null
 
-
+echo "looking for differences ..."
 git_status_file="/tmp/git_status_file"
 git status -s > $git_status_file
 lof=$(wc -l $git_status_file|awk '{print $1}')
@@ -117,6 +124,7 @@ until  [ "$lof" == 0  ]
 
 					if [ $i -eq 2  ]
 						then
+							echo "writing logfile ..."
 							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
 					fi
 					break
@@ -127,12 +135,15 @@ until  [ "$lof" == 0  ]
 				
 					if [ $i -eq 2  ]
 						then
+							echo "writing logfile ..."
 							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
 					fi
 			fi
 		done
 						
-
+echo "cleaning up ..."
 rm -rf $COMPAREDIR 
 rm $git_status_file
+echo -e '\E[32m done'
+tput sgr0
 }

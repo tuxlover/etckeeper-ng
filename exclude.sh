@@ -1,6 +1,7 @@
 # module for writing exclude patterns to a file
 exclude()
-{
+{	
+echo "excluding files from next backup ..."
 EXCLUDES=$(echo "$args")
 
 if [ ! -d $BACKUPDIR ]
@@ -8,11 +9,17 @@ if [ ! -d $BACKUPDIR ]
 		mkdir $BACKUPDIR
 fi
 
-
+# checking whether we have an exclude file 
+# if not create it here	
+if [ ! -e $EXCLUDEFILE ]	
+	then
+		touch $EXCLUDEFILE
+fi
 
 # checking for already added lines in excludefile 
 # by looping over the lines and checking against the input of user
 is_arg1=0
+echo "checking your arguments ..."
 for e in ${EXCLUDES[@]}
 	do
 		# skip the first argument since it is the command itself
@@ -72,6 +79,7 @@ for e in ${EXCLUDES[@]}
 			then
 				#only relative paths are accepted by rsync
 				# so we are cutting of "/etc" from this pattern
+				echo "$e: writing exclude pattern to exclude file ..."
 				echo "${e:4}" >> $EXCLUDEFILE
 				continue
 		fi
@@ -82,8 +90,11 @@ for e in ${EXCLUDES[@]}
 				echo "$e does not match any file in /etc"
 				continue
 		fi
+		
+			echo "$e: writing exclude pattern to exclude file ..."
 			echo "/$e" >> $EXCLUDEFILE
 		
 	done
-	
+echo -e '\E[32m done'
+tput sgr0	
 }
