@@ -16,5 +16,5 @@ echo "list: lists all existing branches"
 echo "list-excludes: list all exclude patterns"
 echo "restore HEAD|<Commit> restore /etc from HEAD or a specific commit (broken)"
 echo "reset: restores the last known state if something has changed but not backuped yet"
-echo "becasue etc-keeper is still under development. the only way to to restore is using git and rsync by hand"
+echo "becasue etc-keeper is still under development. the only way to restore is using git and rsync by hand"
 }
