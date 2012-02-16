@@ -48,12 +48,12 @@ git checkout master &> /dev/null
 echo "looking for differences ..."
 git_status_file="/tmp/git_status_file"
 git status -s > $git_status_file
-lof=$(wc -l $git_status_file|awk '{print $1}')
-until  [ "$lof" == 0  ]
+
+cat $git_status_file|while read line
 	do	
-		if [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "M" 2> /dev/null ]
+		if [ $(echo $line|awk '{print $1}') == "M" 2> /dev/null ]
 			then
-				mod_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
+				mod_file=$(echo $file|awk '{$1="";print}')
 				echo "modified file: $mod_file"
 				
 				if [ $set_mod -eq 0 ]
@@ -63,9 +63,9 @@ until  [ "$lof" == 0  ]
 				fi
 
 
-		elif [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "D"  2> /dev/null ]
+		elif [ $(echo $line|awk '{print $1}') == "D"  2> /dev/null ]
 			then
-				del_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
+				del_file=$(echo $line|awk '{$1="";print}')
 				echo "deleted file: $del_file"
 				
 				if [ $set_del -eq 0 ]
@@ -75,9 +75,9 @@ until  [ "$lof" == 0  ]
 				fi
 
 
-		elif [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "A" 2> /dev/null ]
+		elif [ $(echo $line|awk '{print $1}') == "A" 2> /dev/null ]
 			then
-				a_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
+				a_file=$(echo $line|awk '{$1="";print}')
 				echo "file was allready added: $a_file"
 				
 				if [ $set_add -eq 0 ]
@@ -86,9 +86,9 @@ until  [ "$lof" == 0  ]
 						set_add=1
 				fi
 
-		elif [$(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "R" 2> /dev/null ]
+		elif [$(echo $line|awk '{print $1}') == "R" 2> /dev/null ]
 			then
-				ren_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
+				ren_file=$(echo $line|awk '{$1="";print}')
 				echo "renamed file: $ren_file"		
 
 				if [ $set_ren -eq 0 ]
@@ -99,7 +99,7 @@ until  [ "$lof" == 0  ]
 
 
 		else
-				new_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
+				new_file=$(echo $line|awk '{$1="";print}')
 				echo "new file: $new_file"
 
 				if [ $set_new -eq 0 ]
@@ -111,7 +111,6 @@ until  [ "$lof" == 0  ]
 				# TODO: print new files here and log to $LOGFILE
 			
 		fi
-		lof=$((lof-=1))
 	done
 
 	return_array=(32 16 8 4 2 1 0)
