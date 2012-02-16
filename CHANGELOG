@@ -1,6 +1,6 @@
-* new command "list-excludes" to list the exclude patterns in your Excludefile
+* new command "list-excludes" to list the exclude patterns in your exclude file
 * using the "init" command is no longer interactive: the first commit is always named: inital commit
-* all commands showing comments during runtime what the script is doing 
+* all commands showing comments about what action takes place at runtime 
 * fixed bugs: 
 		- broken exclude command
 		- help function did still show the old options in the header line
