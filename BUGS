@@ -10,7 +10,7 @@
 # 
 # #8 In systemd the targets are linked to lib we need a special handling for this
 #
-# #10 scripts does not recognize white space
+# #10 backup git_single.sh does not recoginze filenams with whitespace
 #
 # #11 restore for permission during check does not work
 #
