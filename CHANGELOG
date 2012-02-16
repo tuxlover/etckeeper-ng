@@ -13,7 +13,8 @@
 		- missing tput sgr0 in check_root leaving red color when script abborts as non root user
 		- git config core.quotepath false fixes issues with german umlauts
 		- using check command without exclude file produced an error from rsync
-		- when using exclude command the first time produced an error regarding cat
+		- when using exclude: command the first time produced an error regarding 
+		- when using check command the files with spaces in filenames were not printed correctly
 
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development
