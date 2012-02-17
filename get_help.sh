@@ -9,6 +9,7 @@ echo "etckeeper-ng helps you creating a snapshot based backup of the /etc folder
 echo "init: create the initial backup. there must be an initial backup to do new branched backups"
 echo "backup: create a new branch backup. if no initiallized backup exists you will be asked"
 echo "check: check the /etc direcotry for changes"
+#echo "comment: only write a comment but don't backup anything"
 echo "reperm: check and restore permissions without asking"
 echo "exclude example: exclude /etc/exaple from versioning"
 echo "add /etc/myfile: add /etc/myfile single file to backup"

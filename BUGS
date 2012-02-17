@@ -1,7 +1,7 @@
 # Bugs:
 # Known Bugs during development: 20
 # Summary: open Bugs: 4
-#			fixed Bugs:16
+#			fixed Bugs:17
 
 
 # #5 when using -f somtimes getting this:
@@ -10,8 +10,6 @@
 # 
 # #8 In systemd the targets are linked to lib we need a special handling for this
 #
-# #10 backup git_single.sh does not recoginze filenams with whitespace
-#
 # #11 restore for permission during check does not work
 #
-#
+# #21 in module compare.sh when file is delete but exlcuded the exclude pattern is not matching against this 

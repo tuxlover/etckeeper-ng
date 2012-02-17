@@ -1,8 +1,7 @@
 # Todo until 0.2.2
-# fix known bugs
-# dont remove exlcudefile when reinitializing with init command
-# add a comment function if you only need to comment your work for example 
-## if you have changed files which where exlcluded by excludefile
+# +fix known bugs
+# +add a comment function if you only need to comment your work for example 
+## if you have changed files which weere exlcluded by excludefile
 
 
 # Todo until 0.2.3
@@ -24,6 +23,7 @@
 # add cronjob functionality to do checks in regular intervalls
 # revmap the keeper.conf file
 # finaly implement this restore -r option
+
 
 # Todo 0.3.1
 # fix known bugs
@@ -47,4 +47,7 @@ Todo in further future:
 #  update the help
 # if no file has changed tell the user also
 # when using backup have an option to disable the permissions check
+# have multi users who are allowed to execute this script Not that root is alwayas allowed.
+# AllowedUsers=user1:user2 ...
 # restore a single file from backup
+# backup over a network

@@ -1,6 +1,9 @@
 * new command "list-excludes" to list the exclude patterns in your exclude file
 * using the "init" command is no longer interactive: the first commit is always named: inital commit
 * all commands showing comments about what action takes place at runtime 
+* the "add" option now only takes one argument now this was part of a major bug fix
+* in keeper.conf you can disable looking for changed permissions if you dont want this
+* when reinitialze with "init command" the script no longer deletes your excludes
 * fixed bugs: 
 		- broken exclude command
 		- help function did still show the old options in the header line
@@ -15,6 +18,8 @@
 		- using check command without exclude file produced an error from rsync
 		- when using exclude: command the first time produced an error regarding 
 		- when using check command the files with spaces in filenames were not printed correctly
+		- when using backup command the files with spaces in filenames were not handled correclty
+		- when using add this was totally broken
 
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development

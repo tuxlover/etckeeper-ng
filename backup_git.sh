@@ -28,13 +28,14 @@ echo "checkout backup directory ..."
 git checkout master &> /dev/null
 
 git_return=0
-check_perms
-return_check=$?
-set_mod=0
-set_del=0
-set_add=0
-set_ren=0
-set_new=0
+
+if [ $DISABLE_PERMS == "1" ]
+		then
+			echo "permissions check is deactivated in your configuration file"
+			#leave this function without doing anything else
+		else
+			check_perms
+fi
 
 # check if exluce file exists
 if [ ! -e $EXCLUDEFILE ]
@@ -52,14 +53,32 @@ fi
 echo "looking for differences ..."
 git_status_file="/tmp/git_status_file"
 git status -s > $git_status_file
-lof=$(wc -l $git_status_file|awk '{print $1}')
-until  [ "$lof" == 0  ]
+cat $git_status_file
+
+cat $git_status_file|while read line
 	do	
-		if [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "M" 2> /dev/null ]
+		if [ $(echo $line|awk '{print $1}') == "M" 2> /dev/null ]
 			then
-				mod_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
-				echo "modified file: $mod_file"
-				git add $mod_file
+				# file has spaces
+				mod_file=$(echo $line |awk -F\" '{print $2}')
+				# file has no spaces
+				mod_file_S=$(echo $line|awk '{print $2}')
+				old_IFS=$IFS
+				IFS=""
+				mod_file="${mod_file[*]}"
+				cd $BACKUPDIR
+				git add "${mod_file:0}" 2> /dev/null || git add $mod_file_S 2> /dev/null
+				
+				if [ -z "$mod_file" ]
+					then
+						echo "modified file:" 
+						echo "$mod_file_S"
+					else
+						echo "modified file:" 
+						echo "${mod_file:0}"
+				fi
+				
+				IFS=$old_IFS
 					
 					if [ $set_mod  -eq 0 ]
 						then
@@ -67,64 +86,84 @@ until  [ "$lof" == 0  ]
 							set_mod=1
 					fi			
 
-		elif [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "D"  2> /dev/null ]
+		elif [ $(echo $line |awk '{print $1}') == "D"  2> /dev/null ]
 			then
-				del_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
-				echo "deleted file: $del_file"
+				del_file=$(echo $line |awk -F\" '{print $2}'|| echo "no")
+				del_file_S=$(echo $line | awk '{print $2}')
+				del_file="${del_file[*]}"
+				cd $BACKUPDIR
+				git rm "${del_file:0}" 2> /dev/null|| git rm $del_file_S 2> /dev/null
 				
+				if [ -z "$del_file" ]
+					then
+						echo "removed file:" 
+						echo "$del_file_S"
+					else
+						echo "removed file:" 
+						echo "${del_file:0}"
+				fi
+				
+				IFS=$old_IFS
+				
+				#FIXME: not every line gets matched against this
 				if [ grep $del_file $EXCLUDEFILE &> /dev/null ]
 					then
 						echo "$del_file was excluded by exlcude rule and will be removed from backup"
+						
 				fi
-					git rm $del_file
+
+		elif [ $(echo $line|awk '{print $1}') == "A" 2> /dev/null ]
+			then
+				a_file=$(echo $line |awk -F\" '{print $2}')
+				a_file_S=$(echo $line|awk '{print $2}')
+				if [ -z "$a_file" ]
+					then
+						echo "file was already added:"
+						echo "$a_file_S"
+					else
+						echo "file was already added:" 
+						echo "${a_file:0}"
+				fi
+
+		elif [ $(echo $line|awk '{print $1}') == "R" 2> /dev/null ]
+			then
+				ren_file=$(echo $line |awk -F\" '{print $2}')
+				ren_file_S=$(echo $line|awk '{print $2}')
+			
+				old_IFS=$IFS
+				IFS=""
+				ren_file="${ren_file[*]}"
+				cd $BACKUPDIR
+				git add "${ren_file:0}" 2> /dev/null || git add $ren_file_S 2> /dev/null
 				
-				if [ $set_del -eq 0 ]
+				if [ -z $ren_file ]
 					then
-						return_check=$((return_check+=4 ))
-						set_del=1
+						echo "renamed file:" 
+						echo "$ren_file_S"
+					else
+						echo "renamed file:" 
+						echo "${ren_file:0}"
 				fi
-
-
-		elif [ $(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "A" 2> /dev/null ]
-			then
-				a_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
-				echo "file was allready added: $a_file"
-
-				if [ $set_add -eq 0 ]
-					then
-						return_check=$((return_check+=8 ))
-						set_add=1
-				fi
-
-
-		elif [$(tail -n $lof $git_status_file|head -1|awk '{print $1}') == "R" 2> /dev/null ]
-			then
-				ren_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
-				echo "renamed file: $ren_file"
-				git add $ren_file
-
-				if [ $set_ren -eq 0 ]
-					then
-						return_check=$((return_check+=16 ))
-						set_ren=1
-				fi
+				
+				IFS=$old_IFS
 
 			else
-				new_file=$(tail -n $lof $git_status_file|head -1|awk '{print $2}')
-				echo "new file: $new_file"
-				git add $new_file
+				new_file=$(echo $line |awk '{$1=""; print}'|awk '{sub(/^[ \t]+/, "")};1')
+			
+				old_IFS=$IFS
+				IFS=""
+				new_file="${new_file[*]}"
+				cd $BACKUPDIR
+				git add "${new_file:0}" 2> /dev/null
 				
-				if [ $set_new -eq 0 ]
-					then
-						return_check=$((return_ceck+=32 ))
-						set_new=1
-				fi
+						echo "new file:" 
+						echo "${new_file:0}"
+				
+				IFS=$old_IFS
 
 		fi
-		lof=$((lof-=1 ))
 	done
 
-echo "Check Code is $return_check"
 #remove untracked file git_status_file
 rm $git_status_file
 
@@ -143,7 +182,7 @@ while [ -z "$COMMENT" ]
 		read -e COMMENT 
 	done
 
-echo "commiting files to Backup ..."
+echo "committing files to Backup ..."
 git commit -m "$USER $DATE ${COMMENT[*]}"
 
 #and return back to master branch to make sure we succeed with no errors

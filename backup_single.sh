@@ -1,103 +1,81 @@
 backup_single()
-{
-	
+{	
 echo "add single files ..."
 DATE=$(date +%F-%H-%M)
-is_arg1=0
+
+old_IFS=$IFS
+IFS=""
 
 # fix problems with german umlauts
 # if already set do nothing
 git config --global core.quotepath false || :
 
+arg="${arg[*]}"
 
-for i in $args
-	do
-		# convert the ith postion in an actual string value
-		i="$i"
-		
-
-		#skip the first argument since it is the command itself
-		if [ $is_arg1 -eq 0 ]
-			then
-				is_arg1=1
-				continue
-		fi
-		
-		# check if we have a starting substring /etc/ and is at least a substring of a length 6th
-		# this will prevent an empty data or including the whole /etc directory
-		if [[ ${i:0:5} != "/etc/" && ! -z ${i:6:1} ]]
-			then
-				echo "add: needs valid path to a file stored in /etc"
-				exit 1
-				
-			else 
-				# used to read loop to check each line  in $EXCLUDEFILE against args
-				# stop if such patterns matches
-				lines=$(wc -l $EXCLUDEFILE|awk '{print $1}')
-				until [ "$lines" == 0 ]
-					do
-						LINE=$(head -n $lines $EXCLUDEFILE |tail -1)
-						HAS_PATTERN=$(echo "$i"|grep $LINE || echo "no")
-												
-						if [ $HAS_PATTERN != "no" ]
-							then
-								echo "This File has been exluded by exclude pattern:"
-								echo "$HAS_PATTERN"
-								
-								awk '{print $1}' $BACKUPDIR/content.lst| grep "^$i$" &> /dev/null && inlist="yes" || inlist="no"
-		
-								if [ $inlist == "no" ]
-									then
-										stat -c "%n %a %U %G" $i >> $BACKUPDIR/content.lst
-										cd $BACKUPDIR
-										git add $BACKUPDIR/content.lst
-										echo "but will be  added to your content.lst "
-										cd $BACKUPDIR
-										git commit -m "$USER $DATE $i added to content.lst"
-										# and return back to master branch to make sure we succeed with no errors
-										git checkout master &> /dev/null || return 1
-										echo -e '\E[32m done'
-										tput sgr0
-								fi
-										
-								
-							exit 1
-
-						fi
+# check if we have a starting substring /etc/ and /etc/is at least a substring with length 6th
+# this should prevent an empty data or includeing th wohole /etc directory
+if [[ ${arg:0:5} != "/etc/" && ! -z ${arg:6:1}  ]]
+	then
+		echo "add: need a valid path to a file stored in /etc"
+		exit 1
+	else
+		cat $EXCLUDEFILE|while read line
+			do
+				HAS_PATTERN=$(echo "$arg"|grep $line || echo "no")
+				if [ $HAS_PATTERN != "no" ]
+					then
+						echo "This file has been excluded by an exclude pattern:"
+						echo "$HAS_PATTERN"
 						
-						lines=$((lines-=1))
-					done
-			
-			
-			# checking if our file actualy exists	
-			if [ ! -f $i ]
-				then
-					echo "WARNING: $i does not exists in /etc"
-					continue
-			fi
-			
-			rsync -rtpogq -clis $i $BACKUPDIR/$i
+						# checking whether we add the file to our content.lst
+						awk '{print $1}' $BACKUPDIR/content.lst|grep "^${arg[*]}$" &> /dev/null && INLIST="yes" || INLIST="no"
+						
+						if [ $inlist == "no" ]
+							then
+								stat -c "%n %a %U %G" $arg >> $BACKUPDIR/content.lst
+								cd $BACKUPDIR
+								git add $BACKUPDIR/content.lst
+								echo "but will be  added to your content.lst "
+								cd $BACKUPDIR
+								git commit -m "$USER $DATE ${arg[*]} added to content.lst"
+								# and return back to master branch to make sure we succeed with no errors
+								git checkout master &> /dev/null || return 1
+								echo -e '\E[32m done'
+								tput sgr0
+						fi
+					exit 1
+				fi
+			done
+fi
+	
+					
+# checking if our file actualy exists	
+if [ ! -f $arg ]
+	then
+		echo "WARNING: ${arg[*]} does not exists in /etc"
+		exit 1
+	else
+			rsync -rtpogq -clis "$arg" "${BACKUPDIR}${arg:1}"
+			cd $BACKUPDIR
+			git add "${arg:1}"
 
 			# check if file exists in content.lst and if not add it
-			awk '{print $1}' $BACKUPDIR/content.lst| grep "^$i$" &> /dev/null && inlist="yes" || inlist="no"
+			awk '{print $1}' $BACKUPDIR/content.lst| grep "^${arg[*]$}" &> /dev/null && inlist="yes" || inlist="no"
 		
 			if [ $inlist == "no" ]
 				then
-					stat -c "%n %a %U %G" $i >> $BACKUPDIR/content.lst
+					stat -c "%n %a %U %G" "$arg" >> $BACKUPDIR/content.lst
 					git add $BACKUPDIR/content.lst
 
 			fi
-		fi
-
-
-done
+fi
 
 echo "commiting single files to backup ..."
 cd $BACKUPDIR
-git add $BACKUPDIR/$i
+
 
 while [ -z "$COMMENT" ]
-	        do
+	    do
 			echo "please comment your commit and press Enter when finished:"
 			read -e COMMENT
 		done
@@ -105,6 +83,7 @@ while [ -z "$COMMENT" ]
 git commit -m "$USER $DATE ${COMMENT[*]}"
 # and return back to master branch to make sure we succeed with no errors
 git checkout master &> /dev/null || return 1
+IFS=$old_IFS
 echo -e '\E[32m done'
 tput sgr0
 }

@@ -1,4 +1,4 @@
-#module for the first initalisation
+# module for the first initalisation
 # do the initial backup
 initial_git()
 {
@@ -16,7 +16,12 @@ if [ -s $BACKUPDIR/content.lst  ]
 				echo "use backup command to commit new backup branch"
 				exit 1
 			else
-				rm -rf $BACKUPDIR/
+				rm  $BACKUPDIR/content.lst
+				rm -rf $BACKUPDIR/etc
+				rm -rf .git
+				#for future 
+				#rm $JOURNAL
+				
 		fi
 fi
 
@@ -37,7 +42,7 @@ if [ ! -d $BACKUPDIR ]
 fi
 
 mkdir $BACKUPDIR/etc
-# check wheter we have an excludefile
+# check whether we have an excludefile
 if [ ! -e $EXCLUDEFILE ]
 	then
 		echo "WARNING: there was no exlcudefile setup, so i exclude nothing"

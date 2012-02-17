@@ -34,13 +34,15 @@ if [ ! -s $BACKUPDIR/content.lst ]
 fi
 
 return_check=0
-check_perms
-return_check=$?
-set_mod=0
-set_del=0
-set_add=0
-set_ren=0
-set_new=0
+
+if [ $DISABLE_PERMS == "1" ]
+		then
+			echo "permissions check is deactivated in your configuration file"
+			#leave this function without doing anything else
+		else
+			check_perms
+
+fi
 
 cd $COMPAREDIR
 git checkout master &> /dev/null
@@ -53,92 +55,86 @@ cat $git_status_file|while read line
 	do	
 		if [ $(echo $line|awk '{print $1}') == "M" 2> /dev/null ]
 			then
-				mod_file=$(echo $file|awk '{$1="";print}')
-				echo "modified file: $mod_file"
-				
-				if [ $set_mod -eq 0 ]
+				# in case file has spaces
+				mod_file=$(echo $line |awk -F\" '{print $2}')
+				# in case the file has no spaces
+				mod_file_S=$(echo $line|awk '{print $2}')
+				old_IFS=$IFS
+				IFS=""
+				mod_file="${mod_file[*]}"				
+				if [ -z "$mod_file" ]
 					then
-						return_check=$((return_check+=2))
-						set_mod=1
-				fi
-
+						echo "modified file:" 
+						echo "$mod_file_S"
+					else
+						echo "modified file:" 
+						echo "${mod_file:0}"
+				fi				
+				IFS=$old_IFS
 
 		elif [ $(echo $line|awk '{print $1}') == "D"  2> /dev/null ]
 			then
-				del_file=$(echo $line|awk '{$1="";print}')
-				echo "deleted file: $del_file"
+				# in case file name has spaces
+				del_file=$(echo $line |awk -F\" '{print $2}')
+				# in case file name has no spaces
+				del_file_S=$(echo $line|awk '{print $2}')
 				
-				if [ $set_del -eq 0 ]
+				old_IFS=$IFS
+				IFS=""
+				del_file="${del_file[*]}"
+				if [ -z "$del_file" ]
 					then
-						return_check=$((return_check+=4))
-						set_del=1
+						echo "deleted file:"
+						echo "$del_file_S"
+					else
+						echo "deleted file:"
+						echo "${del_file:0}"
 				fi
+				IFS=$old_IFS
 
 
-		elif [ $(echo $line|awk '{print $1}') == "A" 2> /dev/null ]
-			then
-				a_file=$(echo $line|awk '{$1="";print}')
-				echo "file was allready added: $a_file"
-				
-				if [ $set_add -eq 0 ]
-					then
-						return_check=$((return_check+=8))
-						set_add=1
-				fi
 
 		elif [$(echo $line|awk '{print $1}') == "R" 2> /dev/null ]
 			then
-				ren_file=$(echo $line|awk '{$1="";print}')
-				echo "renamed file: $ren_file"		
-
-				if [ $set_ren -eq 0 ]
+				# in case file name has spaces
+				ren_file=$(echo $line |awk -F\" '{print $2}')
+				# in case file name has no spaces
+				ren_file_S=$(echo $line|awk '{print $2}')
+				
+				old_IFS=$IFS
+				IFS=""
+				ren_file="${ren_file[*]}"
+				if [ -z "$ren_file" ]
 					then
-						return_check=$((return_check+=16))
-						set_ren=1
+						echo "renamed file:"
+						echo "$ren_file_S"
+					else
+						echo "renamed file:"
+						echo "${ren_file:0}"
 				fi
-
+				IFS=$old_IFS
 
 		else
-				new_file=$(echo $line|awk '{$1="";print}')
-				echo "new file: $new_file"
-
-				if [ $set_new -eq 0 ]
-					then
-						return_check=$((return_check+=32))
-						set_new=1
-				fi
+				new_file=$(echo $line |awk '{$1=""; print}'|awk '{sub(/^[ \t]+/, "")};1')
+				old_IFS=$IFS
+				IFS=""
+				new_file="${new_file[*]}"
+				echo "new file:" 
+				echo "${new_file:0}"
+				old_IFS=$IFS
 
 				# TODO: print new files here and log to $LOGFILE
 			
 		fi
 	done
 
-	return_array=(32 16 8 4 2 1 0)
-	has_mod=$return_check
+echo "writing logfile ..."
+PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
+if [ ! -s $LOGFILE ]
+	then
+		rm $LOGFILE
+fi
 
-	for i in ${return_array[@]}
-		do
-			if [ $return_check -eq $i ]
-				then
-
-					if [ $i -eq 2  ]
-						then
-							echo "writing logfile ..."
-							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
-					fi
-					break
-								
-			elif [ $return_check -gt $i ]	
-				then
-					has_mod=$((has_mod - $i))
-				
-					if [ $i -eq 2  ]
-						then
-							echo "writing logfile ..."
-							PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
-					fi
-			fi
-		done
 						
 echo "cleaning up ..."
 rm -rf $COMPAREDIR 

@@ -19,6 +19,7 @@ source $EWD/compare_etc.sh
 source $EWD/check_perms.sh
 source $EWD/check_perms_S.sh
 source $EWD/reset_etc.sh
+#source $EWD/post_comment.sh
 
 
 # This Programm should be able to backup and restore a complete etc-tree
@@ -75,11 +76,15 @@ if [ $# -ge 2 ]
 				   exclude
 				   exit 0
 			;;
-		"add")  args=$(echo $*)
+		"add")  shift
+				arg=$(echo $*)
 				backup_single
 				exit 0
-			;; 			
-								
+			;;
+		#"comment") args=$(echo $*) 			
+		#		   post_comment
+		#		   exit 0
+		#	;;				
 		*) get_help
 		   exit 0
 		esac
