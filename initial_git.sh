@@ -18,7 +18,7 @@ if [ -s $BACKUPDIR/content.lst  ]
 			else
 				rm  $BACKUPDIR/content.lst
 				rm -rf $BACKUPDIR/etc
-				rm -rf .git
+				rm -rf $BACKUPDIR/.git
 				#for future 
 				#rm $JOURNAL
 				
@@ -61,6 +61,7 @@ fi
 
 # doing the git action
 cd $BACKUPDIR
+echo "$JOURNAL" > $IGNOREFILE
 git init
 echo "init repository ..."
 git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"

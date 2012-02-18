@@ -81,10 +81,10 @@ if [ $# -ge 2 ]
 				backup_single
 				exit 0
 			;;
-		#"comment") args=$(echo $*) 			
-		#		   post_comment
-		#		   exit 0
-		#	;;				
+		"comment") args=$(echo $*) 			
+				   post_comment
+				   exit 0
+			;;				
 		*) get_help
 		   exit 0
 		esac

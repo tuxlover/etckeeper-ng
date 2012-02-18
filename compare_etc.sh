@@ -51,10 +51,12 @@ echo "looking for differences ..."
 git_status_file="/tmp/git_status_file"
 git status -s > $git_status_file
 
-cat $git_status_file|while read line
+has_changes="no"
+while read line
 	do	
 		if [ $(echo $line|awk '{print $1}') == "M" 2> /dev/null ]
 			then
+				has_changes="yes"
 				# in case file has spaces
 				mod_file=$(echo $line |awk -F\" '{print $2}')
 				# in case the file has no spaces
@@ -74,6 +76,7 @@ cat $git_status_file|while read line
 
 		elif [ $(echo $line|awk '{print $1}') == "D"  2> /dev/null ]
 			then
+				has_changes="yes"
 				# in case file name has spaces
 				del_file=$(echo $line |awk -F\" '{print $2}')
 				# in case file name has no spaces
@@ -96,6 +99,7 @@ cat $git_status_file|while read line
 
 		elif [$(echo $line|awk '{print $1}') == "R" 2> /dev/null ]
 			then
+				has_changes="yes"
 				# in case file name has spaces
 				ren_file=$(echo $line |awk -F\" '{print $2}')
 				# in case file name has no spaces
@@ -115,6 +119,7 @@ cat $git_status_file|while read line
 				IFS=$old_IFS
 
 		else
+				has_changes="yes"
 				new_file=$(echo $line |awk '{$1=""; print}'|awk '{sub(/^[ \t]+/, "")};1')
 				old_IFS=$IFS
 				IFS=""
@@ -126,7 +131,7 @@ cat $git_status_file|while read line
 				# TODO: print new files here and log to $LOGFILE
 			
 		fi
-	done
+	done < <(cat $git_status_file)
 
 echo "writing logfile ..."
 PAGER=cat git diff --src-prefix="Backup:/" --dst-prefix="Current:/" $COMPAREDIR >> $LOGFILE
@@ -135,10 +140,17 @@ if [ ! -s $LOGFILE ]
 		rm $LOGFILE
 fi
 
-						
+echo "$has_changes"					
 echo "cleaning up ..."
 rm -rf $COMPAREDIR 
 rm $git_status_file
+
+if [ $has_changes == "no" ]
+	then
+		echo "+++nothing changed+++"
+fi		
+
+
 echo -e '\E[32m done'
 tput sgr0
 }
