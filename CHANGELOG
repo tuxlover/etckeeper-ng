@@ -24,6 +24,7 @@ be problems with $JOURNAL
 		- when using check command the files with spaces in filenames were not printed correctly
 		- when using backup command the files with spaces in filenames were not handled correclty
 		- when using add this was totally broken
+		- in module check_perms and check_perms_S filenames with spaces were not recognized
 
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development

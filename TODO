@@ -2,8 +2,8 @@
 # + fix known bugs
 # + add a comment function if you only need to comment your work for example 
 # + make the journal not to change his entries when nothing has changed
-# + if nothing has changed smply remove the last 2 lines with sed for example
-# + also notify in module compare when nothing has changed
+# + we can not allow more than one exclude pattern becasue we are unable to distunguish 
+# between files with blanks in file names and another filename
 
 
 # Todo until 0.2.3

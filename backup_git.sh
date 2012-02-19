@@ -31,16 +31,6 @@ echo "##$DATE" >> $JOURNAL
 
 git_return=0
 
-if [ $DISABLE_PERMS == "1" ]
-		then
-			echo "permissions check is deactivated in your configuration file"
-			#leave this function without doing anything else
-			return_check=0
-		else
-			check_perms
-			return_check=$?
-fi
-
 # check if exluce file exists
 if [ ! -e $EXCLUDEFILE ]
 	then
@@ -173,21 +163,33 @@ while read line
 		fi
 	done < <(cat $git_status_file)
 
+if [ $DISABLE_PERMS == "1" ]
+		then
+			echo "permissions check is deactivated in your configuration file"
+			#leave this function without doing anything else
+			return_check=0
+		else
+			check_perms
+			return_check=$?
+fi
+
 #remove untracked file git_status_file
 rm $git_status_file
-echo $has_changes
 
+echo $has_changes
 echo $return_check
-#create new content file only when new files were added or permissions have changed
-if [ $return_check -eq 1 ]
+
+#create new content file only when files have changed or permissions have changed
+return_check=0
+if [[ $return_check -eq 1 || $has_changes == "yes" ]]
 	then
 		#clean up the old content.lst
 		cat /dev/null > $BACKUPDIR/content.lst
-		find /etc/ -exec stat -c "%n %a %U %G" {} \; >> $BACKUPDIR/content.lst
+		find /etc/ -exec stat -c "%a %U %G %n" {} \; >> $BACKUPDIR/content.lst
 		git add $BACKUPDIR/content.lst
 		has_changes="yes"
 fi
-	
+
 if [ $has_changes == "yes" ]  	
 	then
 		while [ -z "$COMMENT" ]
@@ -203,10 +205,13 @@ git commit -m "$USER $DATE ${COMMENT[*]}"
 	else
 		# if nothing has changed we remove the date string from journal
 		sed -i '$d' $JOURNAL
-		echo "+++nothing changed+++"
+		echo "+++++ nothing changed +++++"
 fi
 #and return back to master branch to make sure we succeed with no errors
-git checkout master &> /dev/null || return 1			
+git checkout master &> /dev/null || return 1
+
+echo "# check durchgeführt" >>	$JOURNAL
+echo "###" >> $JOURNAL		
 
 echo -e '\E[32m done'
 tput sgr0

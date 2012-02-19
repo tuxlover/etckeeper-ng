@@ -28,11 +28,11 @@ if [[ ${arg:0:5} != "/etc/" && ! -z ${arg:6:1}  ]]
 						echo "$HAS_PATTERN"
 						
 						# checking whether we add the file to our content.lst
-						awk '{print $1}' $BACKUPDIR/content.lst|grep "^${arg[*]}$" &> /dev/null && INLIST="yes" || INLIST="no"
+						awk '{$1="";$2="";$3="";print}' $BACKUPDIR/content.lst|awk '{ sub(/^[ \t]+/, ""); print }'|grep "^${arg[*]}$" &> /dev/null && INLIST="yes" || INLIST="no"
 						
 						if [ $inlist == "no" ]
 							then
-								stat -c "%n %a %U %G" $arg >> $BACKUPDIR/content.lst
+								stat -c "%a %U %G %n" "${arg[*]}" >> $BACKUPDIR/content.lst
 								cd $BACKUPDIR
 								git add $BACKUPDIR/content.lst
 								echo "but will be  added to your content.lst "
@@ -50,7 +50,7 @@ fi
 	
 					
 # checking if our file actualy exists	
-if [ ! -f $arg ]
+if [ ! -f ${arg[*]} ]
 	then
 		echo "WARNING: ${arg[*]} does not exists in /etc"
 		exit 1
@@ -60,11 +60,11 @@ if [ ! -f $arg ]
 			git add "${arg:1}"
 
 			# check if file exists in content.lst and if not add it
-			awk '{print $1}' $BACKUPDIR/content.lst| grep "^${arg[*]$}" &> /dev/null && inlist="yes" || inlist="no"
+			awk '{$1="";$2="";$3="";print}' $BACKUPDIR/content.lst|awk '{ sub(/^[ \t]+/, ""); print }'|grep "^${arg[*]}$" &> /dev/null && INLIST="yes" || INLIST="no"
 		
-			if [ $inlist == "no" ]
+			if [ $INLIST == "no" ]
 				then
-					stat -c "%n %a %U %G" "$arg" >> $BACKUPDIR/content.lst
+					stat -c "%a %U %G %n" "${arg[*]}" >> $BACKUPDIR/content.lst
 					git add $BACKUPDIR/content.lst
 
 			fi

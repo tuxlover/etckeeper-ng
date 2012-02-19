@@ -34,11 +34,11 @@ if [ ! -d $BACKUPDIR ]
 	then	
 		echo "creating content.lst ..."
 		mkdir -p $BACKUPDIR	
-		find /etc/ -exec stat -c "%n %a %U %G" {} \; >> $BACKUPDIR/content.lst
+		find /etc/ -exec stat -c "%a %U %G %n" {} \; >> $BACKUPDIR/content.lst
 
 	else
 		echo "creating content.lst ..."
-		find /etc/ -exec stat -c "%n %a %U %G" {} \; >> $BACKUPDIR/content.lst		
+		find /etc/ -exec stat -c "%a %U %G %n" {} \; >> $BACKUPDIR/content.lst		
 fi
 
 mkdir $BACKUPDIR/etc
@@ -61,9 +61,10 @@ fi
 
 # doing the git action
 cd $BACKUPDIR
-echo "$JOURNAL" > $IGNOREFILE
 git init
 echo "init repository ..."
+echo "journal.log" > $IGNOREFILE
+git add $IGNOREFILE
 git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"
 
 echo -e '\E[32m done'
