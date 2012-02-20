@@ -19,7 +19,7 @@ source $EWD/compare_etc.sh
 source $EWD/check_perms.sh
 source $EWD/reset_etc.sh
 source $EWD/keep_log.sh
-# source $EWD/post_comment.sh
+source $EWD/post_comment.sh
 
 
 # This Programm should be able to backup and restore a complete etc-tree

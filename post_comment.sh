@@ -8,5 +8,7 @@ DATE=$(date +%F-%H-%M)
 # if already set do nothing
 git config --global core.quotepath false || :
 
-echo ${COMMENT[*]}	
+echo "#$DATE" >> $JOURNAL
+echo "#${COMMENT[*]}"	>> $JOURNAL
+echo "###" >> $JOURNAL
 }
