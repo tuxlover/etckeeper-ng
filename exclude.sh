@@ -1,8 +1,10 @@
 # module for writing exclude patterns to a file
 exclude()
-{	
+{
 echo "excluding files from next backup ..."
 EXCLUDES=$(echo "$arg")
+DATE=$(date +%F-%H-%M)
+new_exludes="no"
 
 if [ ! -d $BACKUPDIR ]
 	then
@@ -49,8 +51,7 @@ for e in ${EXCLUDES[@]}
 								echo "Program will not exclude anything"
 								exit 1
 						fi
-						# FIXME:
-						# same locigal error as above
+
 						if [[ "${e:0:4}" == "/etc"  ]]
 						then
 							echo "$line"|grep "\'${e:4}\'"
@@ -84,6 +85,10 @@ for e in ${EXCLUDES[@]}
 				# so we are cutting of "/etc" from this pattern
 				echo "$e: writing exclude pattern to exclude file ..."
 				echo "${e:4}" >> $EXCLUDEFILE
+				pattern[$count]=$(echo ${e:4}) 
+				count=$((count+=1))
+				
+				new_excludes="yes"
 				continue
 		fi
 			
@@ -96,8 +101,26 @@ for e in ${EXCLUDES[@]}
 		
 			echo "$e: writing exclude pattern to exclude file ..."
 			echo "/$e" >> $EXCLUDEFILE
+			new_excludes="yes"
+			pattern[$count]=$(echo "/$e")
+			count=$((count+=1))
 		
 	done
+
+#writing Information to the Journal
+if [ "$new_excludes" == "yes" ]
+	then
+		echo "##$DATE" >> $JOURNAL
+		echo "++ exclude patterns were written to exclude file" >> $JOURNAL
+		
+		for p in ${pattern[@]}	
+			do
+				echo "+ $p" >> $JOURNAL
+	
+			done
+		echo "###" >> $JOURNAL
+fi
+
 echo -e '\E[32m done'
 tput sgr0	
 }

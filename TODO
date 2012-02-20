@@ -6,10 +6,11 @@
 
 # Todo until 0.2.3
 # fix known bugs
-# additional feature to -b option: Write checksums for excluded files
-# additional feature to -c option: do check for the checksums for excluded files 
-# additional feature to -c option: if no changes were made tell the user
-# new -s status option which shows git status of a backup
+# additional feature to backup command: Write checksums for excluded files
+# additional feature to check command: do check for the checksums for excluded files 
+# additional feature to check command: if no changes were made tell the user
+# new health command: which checks the integrety for git repository health
+# provide an install.sh program
 
 
 # Todo until 0.2.4
@@ -51,9 +52,4 @@ Todo in further future:
 # backup over a network
 # sigkill and sigtstop should be disabled
 #this script does only work with non-posix bash shell, so we need to check against this
-
-##2011-12-12-09-12
-+ AKTION
-++ Dateiname
-#COMMENT
-###
+# have an option in future releases to the init commannd which also removes the exlcude files

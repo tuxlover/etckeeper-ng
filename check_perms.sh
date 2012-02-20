@@ -1,5 +1,8 @@
 check_perms()
 {
+# This will make check_perms_S obsolete
+${INTERACTIVE:="yes"} 2> /dev/null
+
 # fix problems with german umlauts
 # if already set do nothing
 git config --global core.quotepath false || :
@@ -10,6 +13,7 @@ echo "checking Permissions ..."
 count=$(wc -l $BACKUPDIR/content.lst | awk '{print $1}')
 old_IFS=$IFS
 IFS=""
+
 
 until [ $count == 0  ]
 	do
@@ -32,9 +36,15 @@ until [ $count == 0  ]
 				echo -e '\E[31m +++ permissions'; echo "of file ${NAME[*]} has changed to $(stat -c %a ${NAME[*]})"
 				tput sgr0
 				echo "+++ permissions of file ${NAME[*]} has changed to $(stat -c %a ${NAME[*]})" >> $JOURNAL
-				echo "Restore permission for ${NAME[*]} to $PERMS" 
-				read -e -n 1 -p	"y(restore)/n(check in these changes)" ANSWER1
-				{$ANSWER1:="n"} 2> /dev/null
+				
+				if [ "$INTERACTIVE" == "yes" ]
+					then
+						echo "Restore permission for ${NAME[*]} to $PERMS" 
+						read -e -n 1 -p	"y(restore)/n(check in these changes)" ANSWER1
+						${ANSWER1:="n"} 2> /dev/null
+					else
+						ANSWER1="y"
+				fi
 				
 				if [ $ANSWER1 == "y" ]
 					then
@@ -52,9 +62,14 @@ until [ $count == 0  ]
 				tput sgr0
 				echo "+++ owner or group if ${NAME[*]} have changed to $(stat -c "%U:%G" ${NAME[*]})" >> $JOURNAL
 				
-				echo "Restore the owner and the Group of the File ${NAME[*]} to $OWNU:$OWNG " 
-				read -e -n 1 -p	"y(restore)/n (check in these changes)" ANSWER2
-				{$ANSWER2:="n"}	2> /dev/null
+				if [ "$INTERACTIVE" == "yes" ]
+					then
+						echo "Restore the owner and the Group of the File ${NAME[*]} to $OWNU:$OWNG " 
+						read -e -n 1 -p	"y(restore)/n (check in these changes)" ANSWER2
+						${ANSWER2:="n"}	2> /dev/null
+					else
+						ANSWER2="y"
+				fi
 				
 				if [ $ANSWER2 == "y" ]
 					then
@@ -70,6 +85,6 @@ until [ $count == 0  ]
 		unset ANSWER1
 		unset ANSWER2
 	done
-	return $return_check
+return $return_check
 IFS=$old_IFS
 }

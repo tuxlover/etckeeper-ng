@@ -1,13 +1,16 @@
-* you must use the "init" function when you have been using etckeeper-ng for a while otherwise there will
-be problems with $JOURNAL
+* you must use the "init" function when you have been using etckeeper-ng 
+for a while otherwise there will be problems with $JOURNAL
 * $JOURNAL keeps track of what a user has done when using "backup" or "add" command
 * new command "list-excludes" to list the exclude patterns in your exclude file
+* new command "journal"  shows a detailed log for etckeeper
 * using the "init" command is no longer interactive: the first commit is always named: inital commit
 * all commands showing comments about what action takes place at runtime 
 * the "add" option now only takes one argument now this was part of a major bug fix
 * in keeper.conf you can disable looking for changed permissions if you dont want this
 * in keeper.conf you can configure what will be changed
 * when reinitialze with "init command" the script no longer deletes your excludes
+	( maybe we add an option to remove exclude files in future releases )
+* removed the check_perms_S module which was quiete redundant to the check_perms module
 * fixed bugs: 
 		- broken exclude command
 		- help function did still show the old options in the header line

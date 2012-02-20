@@ -1,20 +1,24 @@
 # Bugs:
 # Known Bugs during development: 23
-# Summary: open Bugs: 6
-#			fixed Bugs:19
+# Summary: open Bugs:  4
+#			fixed Bugs:18
 
 
 # #5 when using -f somtimes getting this:
 #fatal: Not a git repository (or any parent up to mount parent )
 #Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
-# 
+#FIXME:
+# using rsync should have options to handle symclinks propertly we should look
+# this up in the manpage
+# basicly what to do here is whenever a symlink is found not backup the symlink
+# but rather backup the file. and vice versa when resetting and a symlink is found
+# write to the target to the symlink and do not overwrite the symlink with the file
+#
 # #8 In systemd the targets are linked to lib we need a special handling for this
 #
 # #11 restore for permission during check does not work
-#
-# #21 in module compare.sh when file is delete but exlcuded the exclude pattern is not matching against this 
-# 
-# #22 journal is defective and is not excluded by backup, gitignore does not recognize absolute path
+#FIXME: when changing permissions and checking in these changes we need 
+# to make a new commit everytime this happens to store this permanently
 #
 # #23 check_perms module when check in permssions these should trigger a new rsync
 

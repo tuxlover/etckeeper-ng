@@ -19,8 +19,7 @@ if [ -s $BACKUPDIR/content.lst  ]
 				rm  $BACKUPDIR/content.lst
 				rm -rf $BACKUPDIR/etc
 				rm -rf $BACKUPDIR/.git
-				#for future 
-				#rm $JOURNAL
+				rm -rf $JOURNAL
 				
 		fi
 fi
@@ -63,9 +62,13 @@ fi
 cd $BACKUPDIR
 git init
 echo "init repository ..."
-echo "journal.log" > $IGNOREFILE
+echo "$(echo $JOURNAL|awk -F\/ '{print $NF}')" > $IGNOREFILE
 git add $IGNOREFILE
 git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"
+
+echo "#$DATE" >> $JOURNAL
+echo "initial commit" >> $JOURNAL
+echo "###" >> $JOURNAL
 
 echo -e '\E[32m done'
 tput sgr0
