@@ -35,10 +35,10 @@ git_return=0
 if [ ! -e $EXCLUDEFILE ]
 	then
 		echo "syncing from your current /etc ..."
-		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -cLis /etc/ $BACKUPDIR/etc/
 	else
 		echo "syncing from your current /etc ..."
-		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -cLis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
 fi
 
 

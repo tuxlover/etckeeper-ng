@@ -29,9 +29,9 @@ if [ ! -s $BACKUPDIR/content.lst ]
 	else
 		echo "syncing backup dirctory to comparing directory ..."
 		mkdir $COMPAREDIR
-		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
+		rsync -rtpogq --delete -cLis $BACKUPDIR $COMPAREDIR
 		echo "syncing working directory to comparing directory ..."	
-		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
+		rsync -rtpogq --delete -cLis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
 fi
 
 cd $COMPAREDIR

@@ -1,21 +1,22 @@
 # Todo until 0.2.2
 # + fix known bugs
-# + add a comment function if you only need to comment your work for example 
-# + make the journal not to change his entries when nothing has changed
-
+# + do a git snapshot and release as tarball
 
 # Todo until 0.2.3
 # fix known bugs
 # additional feature to backup command: Write checksums for excluded files
 # additional feature to check command: do check for the checksums for excluded files 
 # additional feature to check command: if no changes were made tell the user
-# new health command: which checks the integrety for git repository health
+# new health command: which checks the integrety for git repository health (git fsck)
 # provide an install.sh program
+# use -P rsync option --progress 
+# do a git snapshot and release as tarball
 
 
 # Todo until 0.2.4
 # fix known bugs and change add command
 # after initialize a new commit, the update command must be used
+# do a git snapshot and release as tarball
 
 # Todo until 0.2.5
 # Heavy testing and fixing bugs
@@ -24,12 +25,13 @@
 # add cronjob functionality to do checks in regular intervalls
 # revmap the keeper.conf file
 # finaly implement this restore -r option
+# do a git snapshot and relese as tarball
 
 
 # Todo 0.3.1
 # fix known bugs
 #  using multiple directories
-
+# do a git snapshot and release as tarball
 
 Todo in further future:
 # checking for sufficient diskspace
@@ -51,5 +53,7 @@ Todo in further future:
 # restore a single file from backup
 # backup over a network
 # sigkill and sigtstop should be disabled
-#this script does only work with non-posix bash shell, so we need to check against this
+# this script does only work with non-posix bash shell, so we need to check against this
 # have an option in future releases to the init commannd which also removes the exlcude files
+# improve commiting suche the way that we can use a name or a specific date when restoring
+# have an preserver old files option to reset could be nice, this can be archieved with the --update option by rsync

@@ -28,7 +28,9 @@ for a while otherwise there will be problems with $JOURNAL
 		- when using backup command the files with spaces in filenames were not handled correclty
 		- when using add this was totally broken
 		- in module check_perms and check_perms_S filenames with spaces were not recognized
-
+		- when encountered symlinks on the reciever side gits sometime gets an error complaining it can not include
+			symlinks outside its repository (#5 #8)
+		
 === 0.2.1 - 06.02.2012 ===
 * etckeeper is split up in modules for better development
 * etckeeper uses a new options style now. use help to find out

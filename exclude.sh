@@ -81,7 +81,7 @@ for e in ${EXCLUDES[@]}
 		# if no pattern where matched we dont add this to the exlude file
 		if [[ ${e:0:5} == "/etc/" && $(ls $e &> /dev/null && echo "yes"|| echo "no") == "yes" ]]
 			then
-				#only relative paths are accepted by rsync
+				# only relative paths are accepted by rsync
 				# so we are cutting of "/etc" from this pattern
 				echo "$e: writing exclude pattern to exclude file ..."
 				echo "${e:4}" >> $EXCLUDEFILE

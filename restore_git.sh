@@ -59,7 +59,7 @@
 #					lof=$((lof-=1))
 #				done
 #fi
-#rsync -rtpog -clis $BACKUPDIR/etc/ /etc/
+#rsync -rtpog -cLis $BACKUPDIR/etc/ /etc/
 #COMMENT=(backup after restore)
 #backup_git
 #}
