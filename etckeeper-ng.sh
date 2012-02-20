@@ -71,8 +71,10 @@ fi
 		
 if [ $# -ge 2 ]		
 	then
+		unset arg
 		case "$1" in 
-		"exclude") args=$(echo $*)
+		"exclude") shift
+				   arg=$(echo $*)
 				   exclude
 				   exit 0
 			;;

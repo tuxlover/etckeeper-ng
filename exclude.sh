@@ -2,7 +2,7 @@
 exclude()
 {	
 echo "excluding files from next backup ..."
-EXCLUDES=$(echo "$args")
+EXCLUDES=$(echo "$arg")
 
 if [ ! -d $BACKUPDIR ]
 	then
@@ -18,41 +18,51 @@ fi
 
 # checking for already added lines in excludefile 
 # by looping over the lines and checking against the input of user
-is_arg1=0
 echo "checking your arguments ..."
 for e in ${EXCLUDES[@]}
 	do
-		# skip the first argument since it is the command itself
-		if [ $is_arg1 -eq 0 ]
-			then
-				is_arg1=1
-				continue
-		fi
-	
-		cat $EXCLUDEFILE|while read line
+
+# first check against the /$e pattern 
+# and check against ${e:4}
+# we do not use double brackets here because we are getting globbing
+# pattern maching against a file so we are turning this off
+
+	while read line
 			do
-				if [[ "/$e" == "$line" || "${e:4}" == "$line" ]]
+				if [ "/$e" == "$line" ]
+					then
+						echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
+						echo "Program will not exclude anything"
+						exit 1
+				# when enclosed in double brackets this gets not evaluated
+				# rather than in single brackets
+				elif [[ "${e:4}" == "$line" ]]
 					then
 						echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
 						echo "Program will not exclude anything"
 						exit 1
 					else 
-						echo "$line"|grep $e
+						echo "$line"|grep "$e"
 						if [ $? -eq 0 ]
 							then
 								echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
 								echo "Program will not exclude anything"
 								exit 1
 						fi
-						echo "$line"|grep ${e:4}
-						if [ $? -eq 0 ]
-							then
-								echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
-								echo "Program will not exclude anything"
-								exit 1
+						# FIXME:
+						# same locigal error as above
+						if [[ "${e:0:4}" == "/etc"  ]]
+						then
+							echo "$line"|grep "\'${e:4}\'"
+							if [ $? -eq 0 ]
+								then
+									echo "$e matched against a pattern alread added in your $EXCLUDEFILE: will not be added"
+									echo "Program will not exclude anything"
+									exit 1
+							fi
 						fi
-				fi				
-			done
+				fi		
+			done < <(cat $EXCLUDEFILE)
 			
 			# when leaving the read line loop with an exit value of 1 exit the script here
 			if [ $? -eq 1 ]
@@ -60,18 +70,11 @@ for e in ${EXCLUDES[@]}
 					exit 1
 			fi
 			
-	done
-
-is_arg1=0	
+done
+	
 for e in ${EXCLUDES[@]}	
 	do
 		
-		# skip the first argument since it is the command itself
-		if [ $is_arg1 -eq 0 ]
-			then
-				is_arg1=1
-				continue
-		fi
 	
 		# test whether we have any files of a matching pattern
 		# if no pattern where matched we dont add this to the exlude file

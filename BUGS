@@ -1,7 +1,7 @@
 # Bugs:
-# Known Bugs during development: 24
-# Summary: open Bugs: 7
-#			fixed Bugs:18
+# Known Bugs during development: 23
+# Summary: open Bugs: 6
+#			fixed Bugs:19
 
 
 # #5 when using -f somtimes getting this:
@@ -17,8 +17,5 @@
 # #22 journal is defective and is not excluded by backup, gitignore does not recognize absolute path
 #
 # #23 check_perms module when check in permssions these should trigger a new rsync
-#
-# #24 in exlude file names with whitespace gets not recognize
-# 
-# #25 exclude completely broken
+
 

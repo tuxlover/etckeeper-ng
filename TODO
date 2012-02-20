@@ -2,8 +2,6 @@
 # + fix known bugs
 # + add a comment function if you only need to comment your work for example 
 # + make the journal not to change his entries when nothing has changed
-# + we can not allow more than one exclude pattern becasue we are unable to distunguish 
-# between files with blanks in file names and another filename
 
 
 # Todo until 0.2.3
@@ -52,6 +50,7 @@ Todo in further future:
 # restore a single file from backup
 # backup over a network
 # sigkill and sigtstop should be disabled
+#this script does only work with non-posix bash shell, so we need to check against this
 
 ##2011-12-12-09-12
 + AKTION

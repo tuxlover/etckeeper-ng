@@ -155,6 +155,8 @@ if [ $has_changes == "no" ]
 		echo "+++++ nothing changed +++++"
 fi		
 
+echo "# check durchgeführt" >>	$JOURNAL
+echo "###" >> $JOURNAL		
 
 echo -e '\E[32m done'
 tput sgr0

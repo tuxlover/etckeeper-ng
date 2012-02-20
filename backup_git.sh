@@ -210,9 +210,6 @@ fi
 #and return back to master branch to make sure we succeed with no errors
 git checkout master &> /dev/null || return 1
 
-echo "# check durchgeführt" >>	$JOURNAL
-echo "###" >> $JOURNAL		
-
 echo -e '\E[32m done'
 tput sgr0
 }
