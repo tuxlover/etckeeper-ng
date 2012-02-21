@@ -52,10 +52,10 @@ if [ ! -e $EXCLUDEFILE ]
 		# create empty excludefile
 		touch $EXCLUDEFILE
 		echo "syncing directories ..."
-		rsync -rtpogq --delete -cLis /etc/ $BACKUPDIR/etc
+		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc
 	else
 		echo "syncing directories ..."
-		rsync -rtpogq --delete -cLis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc
 fi
 
 # doing the git action

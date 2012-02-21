@@ -55,7 +55,7 @@ if [ ! -f ${arg[*]} ]
 		echo "WARNING: ${arg[*]} does not exists in /etc"
 		exit 1
 	else
-			rsync -rtpogq -cLis "$arg" "${BACKUPDIR}${arg:1}"
+			rsync -rtpogq -clis "$arg" "${BACKUPDIR}${arg:1}"
 			cd $BACKUPDIR
 			git add "${arg:1}"
 

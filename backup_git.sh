@@ -35,10 +35,10 @@ git_return=0
 if [ ! -e $EXCLUDEFILE ]
 	then
 		echo "syncing from your current /etc ..."
-		rsync -rtpogq --delete -cLis /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -clis /etc/ $BACKUPDIR/etc/
 	else
 		echo "syncing from your current /etc ..."
-		rsync -rtpogq --delete -cLis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE --delete-excluded /etc/ $BACKUPDIR/etc/
 fi
 
 
@@ -180,7 +180,7 @@ echo $has_changes
 echo $return_check
 
 #create new content file only when files have changed or permissions have changed
-return_check=0
+
 if [[ $return_check -eq 1 || $has_changes == "yes" ]]
 	then
 		#clean up the old content.lst

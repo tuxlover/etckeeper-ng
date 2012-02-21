@@ -1,12 +1,7 @@
 # Bugs:
 # Known Bugs during development: 23
-# Summary: open Bugs:  2
-#			fixed Bugs:21
+# Summary: open Bugs:  0
+#			fixed Bugs:23
 
 
-#
-# #11 restore for permission during check does not work
-# #23 check_perms module when check in permssions these should trigger a new rsync
-#FIXME: when changing permissions and checking in these changes we need 
-# to make a new commit everytime this happens to store this permanently
 

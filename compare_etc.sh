@@ -29,9 +29,9 @@ if [ ! -s $BACKUPDIR/content.lst ]
 	else
 		echo "syncing backup dirctory to comparing directory ..."
 		mkdir $COMPAREDIR
-		rsync -rtpogq --delete -cLis $BACKUPDIR $COMPAREDIR
+		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
 		echo "syncing working directory to comparing directory ..."	
-		rsync -rtpogq --delete -cLis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
+		rsync -rtpogq --delete -clis --exclude-from=$EXCLUDEFILE /etc/ $COMPAREDIR/etc/
 fi
 
 cd $COMPAREDIR
@@ -132,25 +132,29 @@ if [ ! -s $LOGFILE ]
 		rm $LOGFILE
 fi
 
+#function was here
 return_check=0
-if [ $DISABLE_PERMS == "1" ]
+if [ "$DISABLE_PERMS" == "1" ]
 		then
 			echo "permissions check is deactivated in your configuration file"
-			#leave this function without doing anything else
+			# leave this function without doing anything else
 			return_check=0
 		else
+			FROM_CHECK="yes"
+			INTERACTIVE="yes"
 			check_perms
 			return_check=$?
 
 fi
 
+#missing subroutine fpr writing new content.lst
 
 echo "$has_changes"					
 echo "cleaning up ..."
 rm -rf $COMPAREDIR 
 rm $git_status_file
 
-if [ $has_changes == "no" ]
+if [[ $has_changes == "no" && "$perms_changed" == "no" ]]
 	then
 		echo "+++++ nothing changed +++++"
 fi		

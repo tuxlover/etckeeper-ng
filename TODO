@@ -1,34 +1,51 @@
 # Todo until 0.2.2
-# + fix known bugs
 # + do a git snapshot and release as tarball
+
+
 
 # Todo until 0.2.3
 # fix known bugs
 # additional feature to backup command: Write checksums for excluded files
 # additional feature to check command: do check for the checksums for excluded files 
+# repair all fixmes
 # additional feature to check command: if no changes were made tell the user
 # new health command: which checks the integrety for git repository health (git fsck)
 # provide an install.sh program
+# the journal function should also list the user who fullfilled the backup task
 # use -P rsync option --progress 
+# create a command to interactivly check permissions
 # do a git snapshot and release as tarball
 
-
 # Todo until 0.2.4
+# make the program more efficient in speed and consumed diskspace by only
+# checking in files which gets not tracked by rpm package manager
+## in check_tools check if we are using rpm
+## write a file rpms.lst which contains a list containing those files which
+## are stored in rpm database and therefore can be checked here
+# than only rsync those files which were not tracked by rpm
+## for checking check against rsync and using rpm 
+# content.lst should be configured in keeper.conf
+
+# Todo until 0.2.5
 # fix known bugs and change add command
 # after initialize a new commit, the update command must be used
 # do a git snapshot and release as tarball
 
-# Todo until 0.2.5
+
+# Todo until 0.2.6
 # Heavy testing and fixing bugs
 
-# Todo until 0.3.0
+
+
+
+# Todo until 0.3.x
 # add cronjob functionality to do checks in regular intervalls
 # revmap the keeper.conf file
 # finaly implement this restore -r option
 # do a git snapshot and relese as tarball
 
 
-# Todo 0.3.1
+# Todo 0.4.x
 # fix known bugs
 #  using multiple directories
 # do a git snapshot and release as tarball
@@ -43,17 +60,26 @@ Todo in further future:
 # implement ecnryption
 # implement compression
 # also save attributes of a file
+# also check for attributes 
 #  have an install script which gets the right path to install
 #  update the wiki and the Manual
 #  update the help
 # if no file has changed tell the user also
-# when using backup have an option to disable the permissions check
 # have multi users who are allowed to execute this script Not that root is alwayas allowed.
-# AllowedUsers=user1:user2 ...
+## exit script when a user has not the permission to a certian file this means we must check whether
+## the user actually has the permisssions on every file on the /etc side
+## AllowedUsers=user1:user2 ...
 # restore a single file from backup
 # backup over a network
 # sigkill and sigtstop should be disabled
 # this script does only work with non-posix bash shell, so we need to check against this
 # have an option in future releases to the init commannd which also removes the exlcude files
-# improve commiting suche the way that we can use a name or a specific date when restoring
-# have an preserver old files option to reset could be nice, this can be archieved with the --update option by rsync
+# improve commiting such the way that we can use a name or a specific date when restoring
+# have an preserve old files option to reset could be nice, this can be archieved with the --update option by rsync
+
+# !!! HOT !!!:
+# + permissions to links when used do have quite a different permission
+# than the file it points to. so when ever check_perms finds a symlinks
+# the permissions have to get checked not to the symlink but to its pointing source
+# first check if a file is symlink (ls -l fakemac| cut -c1) == l
+# then NAME=$(ls -l $NAME|awk '{print $NF}')
