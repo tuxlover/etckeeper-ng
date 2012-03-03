@@ -1,3 +1,7 @@
+=== 0.2.2.1 - 03.03.2012 ===
+* no help for journal when using help
+
+
 === 0.2.2 - 21.02.2012 ===
 IMPORTANT:
 you must use the "init" function if you have been using etckeeper-ng 

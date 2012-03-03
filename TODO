@@ -1,3 +1,5 @@
+
+
 # Todo until 0.2.3
 # + first we should repair all fixmes to get the code clean
 # + use -P rsync option --progress use a progress bar for git 
@@ -20,6 +22,9 @@
 # - do not abbort when a tool is missing , instead go ahead and check for the other tools and then state a tool is missing
 # - be more restrict and even check for version numbers
 # do a git snapshot and release as tarball
+# have a freeze function to create branches of a etckeeper-ng file list
+# the configuration for etckeeper-ng depdents to much on its base directories
+
 
 
 # Todo until 0.2.4

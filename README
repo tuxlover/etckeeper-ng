@@ -1,11 +1,15 @@
-What is etckeeper-ng:
-The idea behind etckeeper-ng is to improve and simplify the idea of using
-git as a backup and security strategy for the linux /etc directory.
+What is etckeeper-ng?
+---------------------
+The idea behind etckeeper-ng is to improve and simplify using
+git and rsync as a backup and security strategy for the linux /etc 
+directory.
 
-Why is that important:
-The /etc directory is usually the systems directory where linux/unix safes
-the global settings and configurations of certain services and daemons
-usually configured and maintained by one or even more administrators.
+Why is that important?
+----------------------
+The /etc directory is usually the systems directory where linux safes
+its global settings and configurations for certain services and daemons 
+such as ssh or the apache web server. These files keep to be constantly 
+configured and maintained by one or even more administrators.
 
 etckeeper-ng uses git to keep track of these configurations and adds the missing
 feature of git not only to store these files but to keep track of there permissions
