@@ -1,20 +1,26 @@
-# Todo until 0.2.2
-# + do a git snapshot and release as tarball
-
-
-
 # Todo until 0.2.3
-# fix known bugs
-# additional feature to backup command: Write checksums for excluded files
-# additional feature to check command: do check for the checksums for excluded files 
-# repair all fixmes
-# additional feature to check command: if no changes were made tell the user
-# new health command: which checks the integrety for git repository health (git fsck)
+# + first we should repair all fixmes to get the code clean
+# + use -P rsync option --progress use a progress bar for git 
+# + the journal function should also list the user who fullfilled the backup task
+# + and whenever a new bug pops up we should drop it to the BUGS file
+# + new health command: which checks the integrety for git repository health 
+(git fsck) and whether there any dangaling commits whch where not tracked becuase 
+# we etckeeper hands itself befor it could fullfill its tasks
+# + write a new module: create_checksums.sh
+# - which is based on the variable HAVE_CHECKSUMS
+# - HAVE_CHECKSUMS can contain one of the following words:
+# all, exclude-only,without-exclude,none
+# --> if none is set no checkfiles will be used neither created nor checked
+# --> in a later module verify_checksums.sh
+# these new modules affect all modules we have written so far 
+# + create a module verify_checksums.sh
+# + create a new command to only check for permissions interactivly
 # provide an install.sh program
-# the journal function should also list the user who fullfilled the backup task
-# use -P rsync option --progress 
-# create a command to interactivly check permissions
+# improve checktools
+# - do not abbort when a tool is missing , instead go ahead and check for the other tools and then state a tool is missing
+# - be more restrict and even check for version numbers
 # do a git snapshot and release as tarball
+
 
 # Todo until 0.2.4
 # make the program more efficient in speed and consumed diskspace by only
@@ -76,10 +82,15 @@ Todo in further future:
 # have an option in future releases to the init commannd which also removes the exlcude files
 # improve commiting such the way that we can use a name or a specific date when restoring
 # have an preserve old files option to reset could be nice, this can be archieved with the --update option by rsync
+# check for valid entires in the keeper.conf
 
-# !!! HOT !!!:
-# + permissions to links when used do have quite a different permission
-# than the file it points to. so when ever check_perms finds a symlinks
-# the permissions have to get checked not to the symlink but to its pointing source
-# first check if a file is symlink (ls -l fakemac| cut -c1) == l
-# then NAME=$(ls -l $NAME|awk '{print $NF}')
+
+## !!! HOT:  
+We need a special treetments for links. when we use the rsync -L option we would get massive gigabyte
+big backup. The best treatment would be to only check in links when the source points to a file which actually
+can be edited. which means this file is not a  binary file. if a file is a binary file we only should have a 
+check with the create_checksums module, also wie must test whether this tools are present
+# we could have an option in keeper.conf
+# LINKS_FOLLOW="always, no-binary,off"
+# when set to always we asume the -L option for rsync if no-binary is used we skip those who are binary files and if set
+to off we never follow symlinks and just folowing these

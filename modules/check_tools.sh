@@ -39,6 +39,16 @@ if [ $HAS_GREP != "yes" ]
 		exit 1
 fi
 
+# checking sed
+sed --version |head -1 &> /dev/null && HAS_SED="yes" || HAS_SED="no"
+if [ $HAS_SED != "yes" ]
+	then
+		echo -e '\[31m sed not installed'
+		tput sgr0
+		exit 1
+fi
+
+
 # checking find
 find --version &> /dev/null && HAS_FIND="yes" || HAS_FIND="no"
 if [ $HAS_FIND != "yes" ]
