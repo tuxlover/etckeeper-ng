@@ -5,3 +5,19 @@
 
 
 # #24 help module does not shows help for journal
+
+# #25 when resetting form last known state getting this error: 
+# resetting from latest backup ...
+# checkout last commit ...
+# error: pathspec 'journal.log' did not match any file(s) known to git.
+# syncing back to current working /etc directory ...
+# deleting files not found in latest backup ...
+#
+# #25 keeper journal has german entries. should all be english
+#
+# #26 people get high hopes in the name. since they are thinking ng
+# for something better than etckeeper, so we need a better name
+# + configkeeper
+# + coba
+# + keeper
+# + something even better
