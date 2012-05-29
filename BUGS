@@ -21,3 +21,7 @@
 # + coba
 # + keeper
 # + something even better
+#
+#  #27 journal does not keep track of changes when using add function
+
+# #28 if no keeper.conf is found the program will run in an endless loop without havng any result
