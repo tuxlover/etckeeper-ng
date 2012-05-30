@@ -6,8 +6,7 @@
 # + the journal function should also list the user who fullfilled the backup task
 # + and whenever a new bug pops up we should drop it to the BUGS file
 # + new health command: which checks the integrety for git repository health 
-(git fsck) and whether there any dangaling commits whch where not tracked becuase 
-# we etckeeper hands itself befor it could fullfill its tasks
+#(git fsck) and whether there any dangaling commits whch where not tracked becuase 
 # + write a new module: create_checksums.sh
 # - which is based on the variable HAVE_CHECKSUMS
 # - HAVE_CHECKSUMS can contain one of the following words:
