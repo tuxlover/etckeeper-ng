@@ -1,10 +1,7 @@
-# Bugs:
+# Bugs: 33
 # Known Bugs during development: 24
-# Summary: open Bugs:  1
-#			fixed Bugs:23
-
-
-# #24 help module does not shows help for journal
+# Summary: open Bugs:  8
+#			fixed Bugs:24
 
 # #25 when resetting form last known state getting this error: 
 # resetting from latest backup ...
@@ -13,16 +10,18 @@
 # syncing back to current working /etc directory ...
 # deleting files not found in latest backup ...
 #
-# #25 keeper journal has german entries. should all be english
+# #26 keeper journal has german entries. should all be english
 #
-# #26 people get high hopes in the name. since they are thinking ng
+# #27 people get high hopes in the name. since they are thinking ng
 # for something better than etckeeper, so we need a better name
 # + configkeeper
 # + coba
 # + keeper
 # + something even better
 #
-#  #27 journal does not keep track of changes when using add function
+#  #28 journal does not keep track of changes when using add function
 
-# #28 if no keeper.conf is found the program will run in an endless loop without havng any result
-# #29 JOURNAL ist incomplete and should also log when files are added or removed
+# #29 if no keeper.conf is found the program will run in an endless loop without havng any result
+# #30 JOURNAL ist incomplete and should also log when files are added or removed
+# #31 when using exclude functions excludeed files get not commited to git
+# #32 when using check functions, new permissions get not restored nor updated

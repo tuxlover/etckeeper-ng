@@ -1,6 +1,10 @@
-=== 0.2.2.1 - 03.03.2012 ===
-* no help for journal when using help
+=== 0.2.2.2 - 27.06.2012 ===
+* corrected: some comments and journal entries grammar and spelling
+* fixed: check did not keep track of changed permissions
+* fixed: when the script was terminated unclean (Strg-c) remove the old comparsion directory
 
+=== 0.2.2.1 - 03.03.2012 ===
+* no help for journal when using help fixed
 
 === 0.2.2 - 21.02.2012 ===
 IMPORTANT:

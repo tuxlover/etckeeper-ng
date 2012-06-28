@@ -27,6 +27,23 @@ if [ ! -s $BACKUPDIR/content.lst ]
 				initial_git && exit 0 || exit  && exit 0 || exit 11
 		fi
 	else
+		echo "checking for exiting comparing directory from unclean termination ..."
+		
+		# if compare directory already exiists clean up first
+		if [ -d $COMPAREDIR ]
+			then
+				echo "unclean $COMPAREDIR found."
+				echo "cleaning up before continue."
+				rm -r $COMPAREDIR && suc_clean="yes"
+				
+		fi
+		
+		if [ "$suc_clean" != "yes" ]
+			then
+				echo "unable to clean $COMPAREDEAR"
+				echo "stopping the script."
+		fi
+						
 		echo "syncing backup dirctory to comparing directory ..."
 		mkdir $COMPAREDIR
 		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
@@ -144,10 +161,17 @@ if [ "$DISABLE_PERMS" == "1" ]
 			INTERACTIVE="yes"
 			check_perms
 			return_check=$?
-
+		
+		#assuming permissions have changed and therefore we most check in content.lst
+		# before we can continue	
+		if [ $return_check -ne 0  ]
+			then
+				git add  $BACKUPDIR/content.lst
+				git commit -m "$USER $DATE changed permissions"
+		fi
 fi
 
-#missing subroutine fpr writing new content.lst
+#missing subroutine for writing new content.lst
 
 echo "$has_changes"					
 echo "cleaning up ..."
@@ -159,7 +183,13 @@ if [[ $has_changes == "no" && "$perms_changed" == "no" ]]
 		echo "+++++ nothing changed +++++"
 fi		
 
-echo "# check durchgeführt" >>	$JOURNAL
+echo "# check done" >>	$JOURNAL
+
+if [ "$perms_changed" != "yes" ]
+	then
+		echo "++ Permissions changed" >> $JOURNAL
+fi	
+
 echo "###" >> $JOURNAL		
 
 echo -e '\E[32m done'

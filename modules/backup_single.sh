@@ -12,7 +12,7 @@ git config --global core.quotepath false || :
 
 arg="${arg[*]}"
 
-# check if we have a starting substring /etc/ and /etc/is at least a substring with length 6th
+# check if we have a starting substring /etc/ and /etc/ is at least a substring with length 6th
 # this should prevent an empty data or includeing th wohole /etc directory
 if [[ ${arg:0:5} != "/etc/" && ! -z ${arg:6:1}  ]]
 	then
