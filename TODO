@@ -1,5 +1,3 @@
-
-
 # Todo until 0.2.3
 # + first we should repair all fixmes to get the code clean
 # + use -P rsync option --progress use a progress bar for git 
@@ -28,7 +26,7 @@
 # having timestamps to see when a file last changed could also be usefull. especially when we are want to determin when
 # a file last time was updated by package manager
 # no need for pormpting for a commit message. just write added file $foo to backup should be sufficient enough
-
+# have options for some commands. like -w --> without permission check
 
 # Todo until 0.2.4
 # make the program more efficient in speed and consumed diskspace by only
