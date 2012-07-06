@@ -3,24 +3,36 @@
 # etckeeper-ng
 # This varibale is use to indicate the working dir for etckeeper modules
 EWD="/usr/local/bin"
+is_sourced="yes"
+
 # the location of the configuration file
-source /etc/keeper.conf
+# checking whether we have keeper.conf present
+source /etc/keeper.conf || is_sourced="no"
 
+
+# selftest before sourcing the modules
+# if a module could not get sourced corectly we will stop here
 # this functions are needed by etckeeper-ng
-source $EWD/get_help.sh
-source $EWD/check_tools.sh
-source $EWD/check_root.sh
-source $EWD/exclude.sh
-source $EWD/initial_git.sh
-source $EWD/backup_single.sh
-source $EWD/backup_git.sh
-# source $EWD/restore_git.sh
-source $EWD/compare_etc.sh
-source $EWD/check_perms.sh
-source $EWD/reset_etc.sh
-source $EWD/keep_log.sh
-source $EWD/post_comment.sh
+source $EWD/get_help.sh || is_sourced="no"
+source $EWD/check_tools.sh || is_sourced="no"
+source $EWD/check_root.sh || is_sourced="no"
+source $EWD/exclude.sh || is_sourced="no"
+source $EWD/initial_git.sh || is_sourced="no"
+source $EWD/backup_single.sh || is_sourced="no"
+source $EWD/backup_git.sh || is_sourced="no"
+# source $EWD/restore_git.sh || is_sourced="no"
+source $EWD/compare_etc.sh || is_sourced="no"
+source $EWD/check_perms.sh || is_sourced="no"
+source $EWD/reset_etc.sh || is_sourced="no"
+source $EWD/keep_log.sh || is_sourced="no"
+source $EWD/post_comment.sh || is_sourced="no"
 
+
+if [ $is_sourced == "no" ]
+	then
+		echo "OOps: Internal Script failure."
+		exit 1
+fi
 
 # This Programm should be able to backup and restore a complete etc-tree
 # It uses git and rsync to archive this
