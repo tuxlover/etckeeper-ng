@@ -38,10 +38,11 @@ if [ ! -s $BACKUPDIR/content.lst ]
 				
 		fi
 		
-		if [ "$suc_clean" != "yes" ]
+		if [[ "$suc_clean" != "yes" && -d $COMPAREDIR ]]
 			then
 				echo "unable to clean $COMPAREDEAR"
 				echo "stopping the script."
+				exit 1
 		fi
 						
 		echo "syncing backup dirctory to comparing directory ..."

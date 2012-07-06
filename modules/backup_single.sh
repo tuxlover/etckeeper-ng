@@ -13,7 +13,7 @@ git config --global core.quotepath false || :
 arg="${arg[*]}"
 
 # check if we have a starting substring /etc/ and /etc/ is at least a substring with length 6th
-# this should prevent an empty data or includeing th wohole /etc directory
+# this should prevent an empty data or including the whole /etc directory
 if [[ ${arg:0:5} != "/etc/" && ! -z ${arg:6:1}  ]]
 	then
 		echo "add: need a valid path to a file stored in /etc"
@@ -70,7 +70,7 @@ if [ ! -f ${arg[*]} ]
 			fi
 fi
 
-echo "commiting single files to backup ..."
+echo "commiting single file $arg to backup ..."
 cd $BACKUPDIR
 
 
@@ -80,7 +80,18 @@ while [ -z "$COMMENT" ]
 			read -e COMMENT
 		done
 
-git commit -m "$USER $DATE ${COMMENT[*]}"
+git commit -m "$USER $DATE ${COMMENT[*]}" && git_suc="yes"
+
+# only write entries to journal when successfully added
+if [ "$git_suc" == "yes" ]
+	then
+	echo "##$DATE" >> $JOURNAL
+	echo "++ single file:" >> $JOURNAL
+	echo "+ added $arg" >> $JOURNAL
+	echo "#${Comment[*]}" >> $JOURNAL
+	git_suc="no"
+fi
+
 # and return back to master branch to make sure we succeed with no errors
 git checkout master &> /dev/null || return 1
 IFS=$old_IFS

@@ -1,7 +1,10 @@
-=== 0.2.2.2 - 27.06.2012 ===
+=== 0.2.2.2 - 28.06.2012 ===
 * corrected: some comments and journal entries grammar and spelling
 * fixed: check did not keep track of changed permissions
 * fixed: when the script was terminated unclean (Strg-c) remove the old comparsion directory
+* fixed: journal does not keep track of changes when using add function
+* improved: do selfcheck before executing any further action on script
+* improved: when excluding files with the exclude command the $EXCLUDE file also gets under version control
 
 === 0.2.2.1 - 03.03.2012 ===
 * no help for journal when using help fixed

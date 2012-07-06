@@ -16,6 +16,9 @@ fi
 if [ ! -e $EXCLUDEFILE ]	
 	then
 		touch $EXCLUDEFILE
+		cd $BACKUPDIR
+		git add $EXCLUDEFILE
+		git commit -m "initial creation of excludefile"
 fi
 
 # checking for already added lines in excludefile 
@@ -65,7 +68,7 @@ for e in ${EXCLUDES[@]}
 				fi		
 			done < <(cat $EXCLUDEFILE)
 			
-			# when leaving the read line loop with an exit value of 1 exit the script here
+			# when leaving the read line loop with an exit value of 1 exit the script exits here
 			if [ $? -eq 1 ]
 				then 
 					exit 1
@@ -106,6 +109,13 @@ for e in ${EXCLUDES[@]}
 			count=$((count+=1))
 		
 	done
+
+if [ "$new_excludes" == "yes" ]
+	then
+		cd $BACKUPDIR
+		git add $EXCLUDEFILE
+		git commit -m "$DATE $USER new exclude patterns were written to exclude file"
+fi
 
 #writing Information to the Journal
 if [ "$new_excludes" == "yes" ]
