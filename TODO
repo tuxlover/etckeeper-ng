@@ -27,6 +27,7 @@
 # a file last time was updated by package manager
 # no need for pormpting for a commit message. just write added file $foo to backup should be sufficient enough
 # have options for some commands. like -w --> without permission check
+# when excluding password sensetive data remove not just from current branch but from all branches instead (This is not just an bogus but an major security issue which needs to be fixed immediatly imtil the final release adminitstrators should be ) 
 
 # Todo until 0.2.4
 # make the program more efficient in speed and consumed diskspace by only
