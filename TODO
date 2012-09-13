@@ -2,7 +2,7 @@
 # + first we should repair all fixmes to get the code clean
 # + use -P rsync option --progress use a progress bar for git 
 # + the journal function should also list the user who fullfilled the backup task
-# + and whenever a new bug pops up we should drop it to the BUGS file
+# + and whenever a new bug pops up we should drop it to the BUGS file which can be send in as a report
 # + new health command: which checks the integrety for git repository health 
 #(git fsck) and whether there any dangaling commits whch where not tracked becuase 
 # + write a new module: create_checksums.sh
@@ -27,7 +27,9 @@
 # a file last time was updated by package manager
 # no need for pormpting for a commit message. just write added file $foo to backup should be sufficient enough
 # have options for some commands. like -w --> without permission check
-# when excluding password sensetive data remove not just from current branch but from all branches instead (This is not just an bogus but an major security issue which needs to be fixed immediatly imtil the final release adminitstrators should be ) 
+# when excluding password sensetive data remove not just from current branch but from all branches instead (This is not just an bogus but an major security issue which needs to be fixed immediatly until the final release. administrators should using git until the very day when we fix that issue) 
+# ++ removed file: is rather confusing. use removed file from backup instead
+
 
 # Todo until 0.2.4
 # make the program more efficient in speed and consumed diskspace by only
@@ -100,4 +102,4 @@ check with the create_checksums module, also wie must test whether this tools ar
 # we could have an option in keeper.conf
 # LINKS_FOLLOW="always, no-binary,off"
 # when set to always we asume the -L option for rsync if no-binary is used we skip those who are binary files and if set
-to off we never follow symlinks and just folowing these
+to off we never follow symlinks and just folowing these 
