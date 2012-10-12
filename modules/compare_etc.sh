@@ -45,7 +45,7 @@ if [ ! -s $BACKUPDIR/content.lst ]
 				exit 1
 		fi
 						
-		echo "syncing backup dirctory to comparing directory ..."
+		echo "syncing backup directory to comparing directory ..."
 		mkdir $COMPAREDIR
 		rsync -rtpogq --delete -clis $BACKUPDIR $COMPAREDIR
 		echo "syncing working directory to comparing directory ..."	
