@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# etckeeper-ng
-# This varibale is use to indicate the working dir for etckeeper modules
-EWD="/usr/local/bin"
+# keeper.sh
+# This varibale is use to indicate the working dir for keeper modules
+EWD="/usr/local/bini/modules"
 is_sourced="yes"
 
 # the location of the configuration file
@@ -12,7 +12,7 @@ source /etc/keeper.conf || is_sourced="no"
 
 # selftest before sourcing the modules
 # if a module could not get sourced corectly we will stop here
-# this functions are needed by etckeeper-ng
+# these functions are needed by keeper
 source $EWD/get_help.sh || is_sourced="no"
 source $EWD/check_tools.sh || is_sourced="no"
 source $EWD/check_root.sh || is_sourced="no"

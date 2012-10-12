@@ -26,8 +26,7 @@
 # having timestamps to see when a file last changed could also be usefull. especially when we are want to determin when
 # a file last time was updated by package manager
 # no need for pormpting for a commit message. just write added file $foo to backup should be sufficient enough
-# have options for some commands. like -w --> without permission check
-# when excluding password sensetive data remove not just from current branch but from all branches instead (This is not just an bogus but an major security issue which needs to be fixed immediatly until the final release. administrators should using git until the very day when we fix that issue) 
+# have options for some commands. like -w --> without permission check, -m "Text" for git like checkin with -m, requires -w
 # ++ removed file: is rather confusing. use removed file from backup instead
 
 

@@ -1,6 +1,6 @@
-What is etckeeper-ng?
+What is keeper?
 ---------------------
-The idea behind etckeeper-ng is to improve and simplify using
+The idea behind keeper is to improve and simplify using
 git and rsync as a backup and security strategy for the linux /etc 
 directory.
 
@@ -11,19 +11,19 @@ its global settings and configurations for certain services and daemons
 such as ssh or the apache web server. These files keep to be constantly 
 configured and maintained by one or even more administrators.
 
-etckeeper-ng uses git to keep track of these configurations and adds the missing
+keeper uses git to keep track of these configurations and adds the missing
 feature of git not only to store these files but to keep track of there permissions
 and file owners in this directory.
 
 *By using git it is fairly easy to role back some broken or misconfigured files.
 *The commentary functionality of git can be used to document the work of the administrator.
 
-etckeeper-ng saves a copy of the /etc directory at another location than the
+keeper saves a copy of the /etc directory at another location than the
 /etc directory. It uses rsync to sync between these copies and uses git
 afterward to check in certain changes.
 
 *Therefore the last known good state can be verified. 
-*etckeeper-ng itself can also restore permissions of a particular file.
+*keeper itself can also restore permissions of a particular file.
 
 *In future there will be even more features like multiple backups and cronjob.
 
@@ -35,11 +35,11 @@ awk
 find
 stat
 
-Why a new etckeeper:
+Why a new keeper:
 The old one was to complicated to configure and to use..
 The used git repository should not be in the /etc directory itself but in
 a exact copy. I needed a way to easily keep track of permissions. More than
-one backup of the etckeeper seems to be a good idea. Also adding the check
+one backup of the keeper seems to be a good idea. Also adding the check
 function as a cronjob.
 
 Does this work:
@@ -51,5 +51,5 @@ of work to do until we can release a final version. But for now it works pretty
 well for backups.
 
 How does this work, where to get help: 
-There will be a man page for etckeeper-ng in future releases. for now look
+There will be a man page for keeper in future releases. for now look
 up all you want to know in the Wikipage..

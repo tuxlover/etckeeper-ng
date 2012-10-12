@@ -4,7 +4,7 @@ change this by editing the $BACKUPDIR variable in the configuration file
 
 After initializing the Script with:
 
-etckeeper-ng init
+keeper init
 
 it saves a copy of /etc to  /root/.etcbackup/etc and a file 
 /root/.etcbackup/content.bak which contains the permissions user and 
@@ -13,7 +13,7 @@ $BACKUPDIR than gets under version control by git.
 
 Whenever you have done some changes in the configuration files, you can 
 check them in and commit them to git by using the backup option to 
-etckeeper-ng. The Backup function takes a little bit longer though, 
+keeper. The Backup function takes a little bit longer though, 
 since the script also tests whether any permission or ownership or 
 groupship has changed. In this case the Script will ask you, if you 
 would like to restore the original permissions or commit the changed 
@@ -26,7 +26,7 @@ However you will be notified that you should define some files like
 You can define the /etc/passwd file from being backed up by issuing the 
 Script:
 
-etckeeper-ng exclude passwd 
+keeper exclude passwd 
 
 You have to give the relative path from /etc to say which files you wish 
 to exlclude from being backed up. This will create a file 

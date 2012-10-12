@@ -1,3 +1,7 @@
+=== 0.2.3 - 13.09.2012 ===
+* renamed the program to keeper to not confuse people with the original etckeeper
+
+
 === 0.2.2.2 - 28.06.2012 ===
 * corrected: some comments and journal entries grammar and spelling
 * fixed: check did not keep track of changed permissions
