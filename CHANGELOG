@@ -1,5 +1,6 @@
 === 0.2.3 - 13.09.2012 ===
 * renamed the program to keeper to not confuse people with the original etckeeper
+* fixed bug: modules were getting sourced the wrong path /usr/local/sbin/keeper_modules
 
 
 === 0.2.2.2 - 28.06.2012 ===

@@ -1,4 +1,7 @@
 # module to only create a comment 
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other module
+## State needed
 # for example when you want to leave a note for other admins
 post_comment()
 {

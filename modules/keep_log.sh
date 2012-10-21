@@ -1,4 +1,7 @@
-# This module contains the journal and logging modules
+# This module contains the journal and logging functions
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed
 
 list_git()
 {

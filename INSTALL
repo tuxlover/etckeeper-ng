@@ -1,0 +1,28 @@
+This document describes howto install etckeeper-ng for use in a system
+environemnt. 
+
+First check whether you have all dependencies met. You need git for sure
+and some tools that are usually in a default installation of most common
+linux distributions:
+
+REQUIREMENTS:
+* git  
+* rsync 
+* coreutils
+* findutils
+* sed
+* awk
+
+The script will however check if this requirements are met before starting
+any operation.
+
+First copy the modules directory to /usr/local/sbin/keeper_modules
+cp -rv modules /usr/local/sbin/keeper_modules
+
+Than copy keeper.sh to /usr/local/sbin/
+cp -rv keeper.sh /usr/local/sbin/
+
+Last copy the keeper.conf to /etc
+
+If you write or install additional modules that are not in this pack
+ask the developer of the particular module how to install it.  

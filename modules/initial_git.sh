@@ -1,5 +1,8 @@
 # module for the first initalisation
 # do the initial backup
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed main
 initial_git()
 {
 

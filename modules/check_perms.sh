@@ -1,3 +1,7 @@
+# module to check for changed permissions and resetting them
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed experimental
 check_perms()
 {
 # This obsoletes check_perms_S

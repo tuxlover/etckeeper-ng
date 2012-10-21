@@ -1,4 +1,7 @@
 #restore from a certain commit
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State not functional
 #restore_git()
 #{
 #check_perms_S

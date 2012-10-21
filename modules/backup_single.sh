@@ -1,3 +1,8 @@
+# module to backup only one single file
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed
+
 backup_single()
 {	
 echo "add single files ..."

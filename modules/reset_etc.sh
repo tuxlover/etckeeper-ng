@@ -1,4 +1,7 @@
-# reset function
+# reset modul for resetting from a older state
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other module
+## State needed experimental
 
 reset_etc()
 {

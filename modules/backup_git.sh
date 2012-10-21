@@ -1,4 +1,7 @@
-# to a branched backup
+# do a branched backup
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other module
+## State needed
 backup_git()
 {
 # fix problems with german umlauts

@@ -1,5 +1,8 @@
 # the check module
 # check whether we have all needed tools installed and got acces to them
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed
 
 check_tools()
 {

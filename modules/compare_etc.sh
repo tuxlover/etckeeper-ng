@@ -1,3 +1,7 @@
+# module to compare 2 directories and determine changed items in etc
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed 
 compare_etc()
 {
 # fix problems with german umlauts

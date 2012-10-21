@@ -1,6 +1,8 @@
-
 # the help module
 # This module shows the help for a user
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed main
 
 get_help()
 {

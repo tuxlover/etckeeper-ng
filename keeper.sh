@@ -2,7 +2,7 @@
 
 # keeper.sh
 # This varibale is use to indicate the working dir for keeper modules
-EWD="/usr/local/bini/modules"
+EWD="/usr/local/sbin/keeper_modules"
 is_sourced="yes"
 
 # the location of the configuration file

@@ -1,4 +1,7 @@
 # module for writing exclude patterns to a file
+# this is bash shell module for keeper.sh
+# see install instructions to see how to install and use this and other modules
+## State needed 
 exclude()
 {
 echo "excluding files from next backup ..."
