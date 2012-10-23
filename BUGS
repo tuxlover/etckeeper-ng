@@ -12,7 +12,7 @@
 #
 # #26 keeper journal has german entries. should all be english
 #
-# #30 JOURNAL ist incomplete and should also log when files are added or removed
+# #30 JOURNAL is incomplete and should also log when files are added or removed
 # #32 when using check functions, new permissions getting not restored nor updated
 # #36 when using the exlude function the excluded file should be removed also
 # #37 when adding exlude before init was issued we will crash because etcbackup has not yet created
