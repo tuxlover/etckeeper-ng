@@ -48,7 +48,7 @@ mkdir $BACKUPDIR/etc
 if [ ! -e $EXCLUDEFILE ]
 	then
 		echo "WARNING: there was no exlcudefile setup, so i exclude nothing"
-		echo "WARNING: Use \"exclude\" to wirte a list of filese that will be excluded"
+		echo "WARNING: Use \"exclude\" to write a list of files that will be excluded"
 		echo "WARNING: it is highly recommended that you first define what should be exluded"
 		sleep 10
 
@@ -69,7 +69,7 @@ echo "$(echo $JOURNAL|awk -F\/ '{print $NF}')" > $IGNOREFILE
 git add $IGNOREFILE
 git add etc/ && git add content.lst && git add $EXCLUDEFILE && git commit -m "$USER $DATE initial commit"
 
-echo "#$DATE" >> $JOURNAL
+echo "##$DATE" >> $JOURNAL
 echo "initial commit" >> $JOURNAL
 echo "###" >> $JOURNAL
 

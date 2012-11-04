@@ -35,7 +35,7 @@ if [ $is_sourced == "no" ]
 fi
 
 # This Programm should be able to backup and restore a complete etc-tree
-# It uses git and rsync to archive this
+# It uses git and rsync to do this
 # After backup has completed a complete restore should easy be possible 
 
 # check functions gets executed before doing anything else

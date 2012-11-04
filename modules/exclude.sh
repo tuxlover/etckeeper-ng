@@ -20,8 +20,11 @@ if [ ! -e $EXCLUDEFILE ]
 	then
 		touch $EXCLUDEFILE
 		cd $BACKUPDIR
-		git add $EXCLUDEFILE
-		git commit -m "initial creation of excludefile"
+                if [ -d $BACKUPDIR/.git  ]
+                    then
+		        git add $EXCLUDEFILE
+		        git commit -m "initial creation of excludefile"
+                fi
 fi
 
 # checking for already added lines in excludefile 
@@ -116,8 +119,14 @@ for e in ${EXCLUDES[@]}
 if [ "$new_excludes" == "yes" ]
 	then
 		cd $BACKUPDIR
-		git add $EXCLUDEFILE
-		git commit -m "$DATE $USER new exclude patterns were written to exclude file"
+                if [ -d $BACKUPDIR/.git  ]
+                    then
+		        git add $EXCLUDEFILE
+		        git commit -m "$DATE $USER new exclude patterns were written to exclude file"
+                    else
+                       echo "It seems there is no initial backup created yet."
+                       echo "don't forget to create one by using keeper init"
+                fi
 fi
 
 #writing Information to the Journal

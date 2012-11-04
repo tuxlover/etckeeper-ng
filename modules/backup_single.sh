@@ -46,6 +46,9 @@ if [[ ${arg:0:5} != "/etc/" && ! -z ${arg:6:1}  ]]
 								# and return back to master branch to make sure we succeed with no errors
 								git checkout master &> /dev/null || return 1
 								echo -e '\E[32m done'
+                                                                echo "##$DATE" >> $JOURNAL
+                                                                echo "++ updated your content.lst" >> $JOURNAL
+                                                                echo "###" >> $JOURNAL
 								tput sgr0
 						fi
 					exit 1

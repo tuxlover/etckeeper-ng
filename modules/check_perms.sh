@@ -37,6 +37,8 @@ until [ $count -eq 0  ]
 	# if a file is not present, skip test
 		if [ ! -e "${NAME[*]}" ]
 			then
+                                echo "$FILE was listed but is not present in your filesystem."|tee  -a $JOURNAL
+                                echo "skipped"
 				count=$((count-=1))
 				continue
 		fi
@@ -98,7 +100,7 @@ until [ $count -eq 0  ]
 			then				
 				echo -e '\E[31m +++ owner or group'; echo  "of ${NAME[*]} have changed to $(stat -c "%U:%G" ${NAME[*]})"
 				tput sgr0
-				echo "+++ owner or group if ${NAME[*]} have changed to $(stat -c "%U:%G" ${NAME[*]})" >> $JOURNAL
+				echo "+++ owner or group of ${NAME[*]} have changed to $(stat -c "%U:%G" ${NAME[*]})" >> $JOURNAL
 				
 				if [ "$INTERACTIVE" == "yes" ]
 					then
@@ -133,7 +135,7 @@ until [ $count -eq 0  ]
 						cd $BACKUPDIR
 						git add content.lst
 						cd ${BACKUPDIR}etc/
-						git add "${COMMITNAME[*]}"						
+						git add "${COMMITNAME[*]}"
 						echo "++++ Owner and Group for file ${NAME[*]} added to backup." 
 						echo "++++ Owner and Group for file ${NAME[*]} added to backup." >> $JOURNAL 
 						perms_changed="yes"
