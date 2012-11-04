@@ -1,7 +1,7 @@
-=== 0.2.3 - 13.09.2012 ===
+=== 0.2.3 - 04.10.2012 ===
 * renamed the program to keeper to not confuse people with the original etckeeper
 * fixed bug: modules were getting sourced the wrong path /usr/local/sbin/keeper_modules
-
+* fixed bug: #37 when adding excludes before init where issued script complains git errors
 
 === 0.2.2.2 - 28.06.2012 ===
 * corrected: some comments and journal entries grammar and spelling

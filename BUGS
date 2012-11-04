@@ -1,6 +1,6 @@
 # Bugs: 37
 # Known Bugs during development:7
-# Summary: open Bugs:  6
+# Summary: open Bugs:  5
 #			fixed Bugs:31
 
 # #25 when resetting form last known state getting this error: 
@@ -10,10 +10,7 @@
 # syncing back to current working /etc directory ...
 # deleting files not found in latest backup ...
 #
-# #26 keeper journal has german entries. should all be english
-#
 # #30 JOURNAL is incomplete and should also log when files are added or removed
 # #32 when using check functions, new permissions getting not restored nor updated
 # #36 when using the exlude function the excluded file should be removed also
-# #37 when adding exlude before init was issued we will crash because etcbackup has not yet created
 # #38 excluded files gets not removed from git repostitory completely but being excluded from backup   
