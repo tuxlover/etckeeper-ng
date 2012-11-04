@@ -37,9 +37,13 @@ until [ $count -eq 0  ]
 	# if a file is not present, skip test
 		if [ ! -e "${NAME[*]}" ]
 			then
-                                echo "$FILE was listed but is not present in your filesystem."|tee  -a $JOURNAL
-                                echo "skipped"
-				count=$((count-=1))
+                                echo "+++ $FILE was listed but is not present in your filesystem."|tee  -a $JOURNAL
+                                #remember skipped lines for later deletition
+                                sed -i "${count},${count}d" $BACKUPDIR/content.lst
+                                cd $BACKUPDIR
+                                git add content.lst
+                                echo "++ deleted"
+                                perms_changed="yes"
 				continue
 		fi
 	
