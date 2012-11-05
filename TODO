@@ -1,5 +1,6 @@
 # Todo until 0.2.3
 # + first we should repair all fixmes to get the code clean
+# + use the advanced option to edit the permissions manually in check_perms.sh
 # + use -P rsync option --progress use a progress bar for git 
 # + the journal function should also list the user who fullfilled the backup task
 # + and whenever a new bug pops up we should drop it to the BUGS file which can be send in as a report
