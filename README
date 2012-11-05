@@ -32,13 +32,14 @@ Linux
 rsnyc
 git
 awk
+sed
 find
 stat
 
 Why a new keeper:
 The old one was to complicated to configure and to use..
-The used git repository should not be in the /etc directory itself but in
-a exact copy. I needed a way to easily keep track of permissions. More than
+The used git repository should not be in the /etc directory itself but rather
+safed as an exact copy. I needed a way to easily keep track of permissions. More than
 one backup of the keeper seems to be a good idea. Also adding the check
 function as a cronjob.
 
@@ -46,7 +47,7 @@ Does this work:
 It has some Bugs which causes the script not to function correctly. We will
 fix these in future releases. Whenever you find a bug please report it.
 Some of the things we want to do are not implemented yet, some have been removed
-because they do not function propertly  like the -r option. There is still a lot
+because they do not function propertly  like the reset command. There is still a lot
 of work to do until we can release a final version. But for now it works pretty
 well for backups.
 
