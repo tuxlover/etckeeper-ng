@@ -6,18 +6,21 @@ After initializing the Script with:
 
 keeper init
 
-it saves a copy of /etc to  /root/.etcbackup/etc and a file 
-/root/.etcbackup/content.bak which contains the permissions user and 
-owner of every file in the original /etc directory. All files under 
-$BACKUPDIR than gets under version control by git.
+this will initilize the begin of versionng /etc and safes a copy of /etc to  
+/root/.etcbackup/etc and a file /root/.etcbackup/content.bak 
+which contains the permissions user and owner of every file in the original 
+/etc directory. All files under $BACKUPDIR than gets under version control 
+by git.
 
 Whenever you have done some changes in the configuration files, you can 
 check them in and commit them to git by using the backup option to 
 keeper. The Backup function takes a little bit longer though, 
-since the script also tests whether any permission or ownership or 
-groupship has changed. In this case the Script will ask you, if you 
-would like to restore the original permissions or commit the changed 
-permissions and store them in the content.bak file.
+since the script also tests whether any permission or ownership has changed.
+You can turn off this behaviour by editing the configuration file keeper.conf
+and set DISABLE_PERMS=1
+In case the Script finds a changed permission on a file it will be asking you, 
+if you would like to restore the original permissions or commit the changed 
+permissions and store them in the content.lst file.
 
 You can list your commits by using the "list" command.
 
@@ -28,25 +31,33 @@ Script:
 
 keeper exclude passwd 
 
-You have to give the relative path from /etc to say which files you wish 
-to exlclude from being backed up. This will create a file 
-/root/.etcbackup/excludes which will be read by the rsync programm 
-with the --exclude-from option.
+You have to give the relative path from /etc or the abslute path to 
+say which files you wish to exlclude from being backed up. This will 
+create a file /root/.etcbackup/excludes which will be read by the 
+rsync programm with the --exclude-from option.
 
 To add a single file to your backup use the "add" command. Note that if
 you have exlcluded a file from your backup this command will only add 
 the filename to your content.lst
 
-Checking if someone has something changed can be archived by using the 
+Checking if someone has something changed can be achived by using the 
 check command. This will create a second copy of the backup directory 
 and will rsync the /etc to this particular second copy. The directory 
 can be set by editing the variable $COMPAREDIR. The script will use git 
 status -s and a check function for the permissions to check against 
-content.bak if the user, the group and the permissions of all files are 
+content.lst if the user, the group and the permissions of all files are 
 genuine.
 
 If someone or yourself by accident change the permissions of a particular file you can 
 reset this by using the "reperm" command.
 
+Sometimes you will just make a not. maybe a server configuration is broken.
+You can use the comment option to write just a comment about that like this:
+keeper comment "weird server foo broken". The entrie will be saved in your 
+journal which also keeps track of changed permissions (git cannot do this
+natively) and all your commits and changes.
+
+To view the journal just type:
+keeper journal
 
 Hope this script makes the live a little bit easier for you.
