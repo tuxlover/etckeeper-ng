@@ -1,4 +1,9 @@
-=== 0.2.3 - 04.10.2012 ===
+=== 0.2.3 - 09.11.2012 ===
+IMPORTANT:
+At the time version 0.2.3 is in development and not a new major version.
+Things might be broken and render your previous created backup worthless.
+If you however find a new bug feel free to mail me.
+
 * renamed the program to keeper to not confuse people with the original etckeeper
 * fixed bug: modules were getting sourced the wrong path /usr/local/sbin/keeper_modules
 * fixed bug: #37 when adding excludes before init where issued script complains git errors

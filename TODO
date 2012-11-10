@@ -22,7 +22,8 @@
 # have a freeze function to create branches of a etckeeper-ng file list
 # the configuration for etckeeper-ng depdents to much on its base directories
 # journal should destinguish betwwen user added entry and enties added by the script
-# one way we could use is: to denote an u or an s  in front of each entry
+##USER committed change: User who actually did committed the change.
+##Effective USER at runtime: User who has run the script 
 # having timestamps to see when a file last changed could also be usefull. especially when we are want to determin when
 # a file last time was updated by package manager
 # no need for pormpting for a commit message. just write added file $foo to backup should be sufficient enough
@@ -31,6 +32,7 @@
 
 
 # Todo until 0.2.4
+# extensions for rpm and deb package managers
 # make the program more efficient in speed and consumed diskspace by only
 # checking in files which gets not tracked by rpm package manager
 ## in check_tools check if we are using rpm
