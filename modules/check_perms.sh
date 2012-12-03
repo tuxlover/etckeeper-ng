@@ -21,11 +21,6 @@ count=$(wc -l $BACKUPDIR/content.lst | awk '{print $1}')
 old_IFS="$IFS"
 IFS=""
 
-
-# FIXME:
-# whenever a file has both changes in permissions and owner
-# this loop does not distinguish between them
-# and restores all the permissions although the user may not want this
 until [ $count -eq 0  ]
 	do
 		FILE=$(head -n ${count} $BACKUPDIR/content.lst|tail -1)
@@ -44,7 +39,7 @@ until [ $count -eq 0  ]
                                 git add content.lst
                                 echo "++ deleted" | tee -a $JOURNAL
                                 perms_changed="yes"
-				continue
+				check_perms
 		fi
 
 	       # cheking whether the Permissions have changed
