@@ -14,3 +14,4 @@
 # #32 when using check functions, new permissions getting not restored nor updated
 # #36 when using the exlude function the excluded file should be removed also
 # #38 excluded files gets not removed from git repostitory completely but being excluded from backup   
+# #39 when permissions get changed to +x and restored afterwards git is complaining about not able to add a file to backup
