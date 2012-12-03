@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # keeper.sh
-# This varibale is use to indicate the working dir for keeper modules
+# This varibale is used to indicate the working dir for keeper modules
 EWD="/usr/local/sbin/keeper_modules"
 is_sourced="yes"
 
